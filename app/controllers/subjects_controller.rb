@@ -12,4 +12,19 @@ class SubjectsController < ApplicationController
 
     render json: @sections
   end
+
+  def index
+    # to check if all subjects are valid
+    # @subjects = Subject.all
+    # subjects.all?(&:valid?)
+    # to check if any subject is valid
+    # subjects.any?(&:valid?)
+    # save all subjects
+    # subjects.each(&:save!)
+    # return an array of upcased titles
+    @subjects = Subject.all.collect(&:title).collect(&:upcase)
+
+    render json: @subjects
+  end
+
 end

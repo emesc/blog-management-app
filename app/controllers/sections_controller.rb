@@ -28,7 +28,7 @@ class SectionsController < ApplicationController
     # if this sort of find is performed on several actions
     # @sections = Section.where(complete: false).order('id DESC')
     # move it to the model to prevent duplication and then call
-    @sections = Section.complete
+    @sections = Section.complete.limit(2)
     render json: @sections
   end
 end
