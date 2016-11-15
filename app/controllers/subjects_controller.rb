@@ -8,7 +8,7 @@ class SubjectsController < ApplicationController
     # short solution, dynamic find through association
     # @sections = @subject.sections.where(complete: false)
     # update above line since this find is moved to the model, with sorting
-    @sections = @subject.sections.find_incomplete
+    @sections = @subject.sections.incomplete
 
     render json: @sections
   end

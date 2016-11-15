@@ -9,7 +9,7 @@ class SectionsController < ApplicationController
   #   # @sections = @sections.to_a
   # end
 
-  # def recent_incomplete
+  # def latest_incomplete
   #   # using date
   #   # @section = Section.where(complete: false).order('created_at DESC').first
   #   # faster: using id since primary key is indexed
@@ -26,8 +26,9 @@ class SectionsController < ApplicationController
 
   def index
     # if this sort of find is performed on several actions
-    # @tasks = Task.where(complete: false).order('id DESC')
+    # @sections = Section.where(complete: false).order('id DESC')
     # move it to the model to prevent duplication and then call
-    @tasks = Task.find_incomplete
+    @sections = Section.complete
+    render json: @sections
   end
 end
