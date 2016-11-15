@@ -19,6 +19,9 @@ class SectionsController < ApplicationController
 
   def search_in_title(query='')
     # using first word, then convert to array
-    @sections = Section.where("title LIKE ?", "#{query}%").to_a
+    # case insensitive
+    # @sections = Section.where("title LIKE ?", "#{query}%").to_a
+    # to be sure, since substring can be anywhere in the string
+    @sections = Section.where("title LIKE ?", "%#{query}%").to_a
   end
 end
