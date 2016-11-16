@@ -1,0 +1,25 @@
+<% content_for :head do %>
+  <%#= stylesheet_link_tag 'projects' %>
+  Content for head
+<% end %>
+
+<h3>Subjects</h3>
+<table>
+  <thead>
+    <tr>
+      <th>Title</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @subjects.each do |subject| %>
+      <tr>
+        <td><%= subject.title %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<% content_for :footer do %>
+  <br>
+  Content for footer
+<% end %>

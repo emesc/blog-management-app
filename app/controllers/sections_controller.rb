@@ -29,6 +29,6 @@ class SectionsController < ApplicationController
     # @sections = Section.where(complete: false).order('id DESC')
     # move it to the model to prevent duplication and then call
     @sections = Section.complete.limit(2)
-    render json: @sections
+    # render json: @sections
   end
 end

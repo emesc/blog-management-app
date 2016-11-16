@@ -1,5 +1,7 @@
 class SubjectsController < ApplicationController
 
+  layout :user_layout
+
   def show
     # find all sections scoped through subject model
     @subject = Subject.find(params[:id])
@@ -15,16 +17,34 @@ class SubjectsController < ApplicationController
 
   def index
     # to check if all subjects are valid
-    # @subjects = Subject.all
+    @subjects = Subject.all
     # subjects.all?(&:valid?)
     # to check if any subject is valid
     # subjects.any?(&:valid?)
     # save all subjects
     # subjects.each(&:save!)
     # return an array of upcased titles
-    @subjects = Subject.all.collect(&:title).collect(&:upcase)
+    # @subjects = Subject.all.collect(&:title).collect(&:upcase)
 
-    render json: @subjects
+    # just show the list as json
+    # render json: @subjects
+    # use subjects layout only for a specific action
+    # render layout: "subjects"
+    # dont use any layout
+    # render layout: false
   end
+
+  private
+
+    # control layouts based on user
+    def user_layout
+      # if current_user.admin?
+      # since there's no user resource yet
+      if false
+        "admin"
+      else
+        "application"
+      end
+    end
 
 end
