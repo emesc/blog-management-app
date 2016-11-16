@@ -1,0 +1,9 @@
+<%= flash[:notice] %>
+
+<h2>Profile</h2>
+<p>
+  <em>Name:</em> 
+  <%= @user.full_name %>
+</p>
+
+<%= link_to "Back to list", users_path, class: "move-right" %>

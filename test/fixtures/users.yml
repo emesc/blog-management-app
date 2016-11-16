@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+john:
+  first_name: "John"
+  last_name: "Doe"
+  password: "password"
+
+jane:
+  first_name: "Jane"
+  middle_initial: "D"
+  last_name: "Doe"
+  password: "password"
+
+bob:
+  first_name: "Bob"
+  middle_initial: ""
+  last_name: "Dylan"
+  password: "password"
