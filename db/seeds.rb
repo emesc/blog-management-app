@@ -13,13 +13,13 @@
 # Section.create(title: 'Authentic food truck austin', complete: true)
 
 news = Subject.create(title: 'News')
-news.sections.create(title: 'Marfa pickled DIY', complete: true)
-news.sections.create(title: 'Williamsburg trust fund', complete: false)
+news.sections.create(title: 'Marfa pickled DIY', complete: true, priority: 6)
+news.sections.create(title: 'Williamsburg trust fund', complete: false, priority: 3)
 
 food = Subject.create(title: 'Food')
-food.sections.create(title: 'PBR&B cold-pressed vaporware', complete: false)
-food.sections.create(title: 'Unicorn af cronut', complete: true)
-food.sections.create(title: 'Authentic food truck austin', complete: true)
+food.sections.create(title: 'PBR&B cold-pressed vaporware', complete: false, priority: 9)
+food.sections.create(title: 'Unicorn af cronut', complete: true, priority: 7)
+food.sections.create(title: 'Authentic food truck austin', complete: true, priority: 4)
 
 User.create(first_name: "Abraham", last_name: "Lincoln")
 User.create(first_name: "George", last_name: "Washington")
