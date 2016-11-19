@@ -13,13 +13,13 @@
 # Section.create(title: 'Authentic food truck austin', complete: true)
 
 news = Subject.create(title: 'News')
-news.sections.create(title: 'Marfa pickled DIY', complete: true, priority: 6)
-news.sections.create(title: 'Williamsburg trust fund', complete: false, priority: 3)
+news.sections.create(title: 'Marfa pickled DIY', complete: true, priority: 6, body: "Salvia listicle succulents man bun mlkshk, roof party hoodie unicorn enamel pin chillwave cornhole 3 wolf moon godard 8-bit. Blue bottle snackwave authentic, drinking vinegar keytar knausgaard swag etsy single-origin coffee butcher literally health goth.")
+news.sections.create(title: 'Williamsburg trust fund', complete: false, priority: 3, body: "Deep v etsy man braid DIY chartreuse meditation, shabby chic vice tote bag beard marfa street art franzen butcher post-ironic. Lyft tote bag before they sold out polaroid gentrify. Chicharrones vaporware narwhal tattooed activated charcoal.")
 
 food = Subject.create(title: 'Food')
-food.sections.create(title: 'PBR&B cold-pressed vaporware', complete: false, priority: 9)
-food.sections.create(title: 'Unicorn af cronut', complete: true, priority: 7)
-food.sections.create(title: 'Authentic food truck austin', complete: true, priority: 4)
+food.sections.create(title: 'PBR&B cold-pressed vaporware', complete: false, priority: 9, body: "YOLO gentrify ennui, authentic portland bespoke raclette leggings master cleanse selvage fingerstache intelligentsia. Fam pok pok typewriter, raw denim normcore succulents polaroid poke.")
+food.sections.create(title: 'Unicorn af cronut', complete: true, priority: 7, body: "Tattooed waistcoat ethical fashion axe. Sartorial chillwave migas franzen photo booth, keytar disrupt kale chips bushwick lomo. Quinoa brunch pug, craft beer direct trade kickstarter butcher ethical mixtape lomo yuccie prism vice hammock jianbing.")
+food.sections.create(title: 'Authentic food truck austin', complete: true, priority: 4, body: "Shoreditch green juice activated charcoal af church-key humblebrag. Put a bird on it pug typewriter normcore hella echo park. Trust fund wolf tofu brooklyn snackwave, franzen banjo meditation DIY literally hell of cornhole.")
 
 User.create(first_name: "Abraham", last_name: "Lincoln")
 User.create(first_name: "George", last_name: "Washington")

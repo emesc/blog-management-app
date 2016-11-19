@@ -1,0 +1,23 @@
+<table>
+  <thead>
+    <tr>
+      <th>Subject</th>
+      <th>Title</th>
+      <th>Done</th>
+      <th>Priority</th>
+      <th>Body</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @sections.each do |section| %>
+      <tr>
+        <%# subject_title only for joins-select(-where); otherwise, subject.title %>
+        <td><%= section.subject_title %></td>
+        <td><%= section.title %></td>
+        <td><%= section.complete %></td>
+        <td><%= section.priority %></td>
+        <td><%= truncate(section.body, length: 50, separator: ' ') %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

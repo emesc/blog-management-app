@@ -28,7 +28,26 @@ class SectionsController < ApplicationController
     # if this sort of find is performed on several actions
     # @sections = Section.where(complete: false).order('id DESC')
     # move it to the model to prevent duplication and then call
-    @sections = Section.complete.limit(2)
+    # @sections = Section.complete.limit(2)
     # render json: @sections
+
+    # ACTIVERECORD QUERYING
+    # if it doesn't work, try add references method since it wasnt included in the migration when subject_id was added
+    # look at the generated sql query
+    # @sections = Section.preload(:subject)
+    # will raise an exception
+    # @sections = Section.preload(:subject).where("subjects.title = ?", "Food")
+    # look at the generated sql query; uses LEFT OUTER JOIN
+    # @sections = Section.eager_load(:subject)
+    # look at the generated sql query; uses LEFT OUTER JOIN
+    # @sections = Section.eager_load(:subject).where("subjects.title = ?", "Food")
+    # look at the generated sql query; uses preload
+    # @sections = Section.includes(:subject)
+    # look at the generated sql query; uses eager_load
+    # @sections = Section.includes(:subject).where("subjects.title = ?", "Food").references(:subject)
+    # look at the generated sql query; uses INNER JOIN
+    # @sections = Section.joins(:subject).select("sections.*, subjects.title as subject_title")
+    # look at the generated sql query; uses INNER JOIN
+    @sections = Section.joins(:subject).select("sections.*, subjects.title as subject_title").where("subject_title = ?", "Food")
   end
 end

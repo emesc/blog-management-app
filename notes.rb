@@ -13,3 +13,25 @@ subject.sections.first.priority
 subject.sections.maximum(:priority)
 # return the topmost priority from unfinished sections
 subject.sections.where(complete: false).minimum(:priority)
+
+##############################
+# Find conditions
+# https://stackoverflow.com/questions/21435768/rails-console-find-users-by-array-of-ids
+# http://guides.rubyonrails.org/active_record_querying.html#array-conditions
+# sample queries
+##############################
+subject = Subject.first
+# priority is null
+subject.sections.where(priority: nil)
+# will only return the first item on the list
+subject.sections.find_by_priority(1..10)
+# using a range
+# following 2 are the same
+subject.sections.where(["complete = ? and priority in (?)", false, (1..10).to_a])
+subject.sections.where(["complete = ? and priority in (?)", false, 1..10])
+subject.sections.where(complete: false).where(priority: 1..10)
+# using an array for particular priorities
+subject.sections.where(["complete = ? and priority in (?)", false, [3, 9]])
+subject.sections.where(complete: false).where(priority: [3, 9])
+# passing a hash condition
+subject.sections.where({complete: false, priority: 1..10})
