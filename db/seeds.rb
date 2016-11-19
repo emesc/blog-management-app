@@ -23,6 +23,6 @@ food.sections.create(title: 'Authentic food truck austin', complete: true, prior
 
 User.create(first_name: "Abraham", last_name: "Lincoln")
 User.create(first_name: "George", last_name: "Washington")
-User.create(first_name: "Franklin", middle_initial: "D", last_name: "Washington")
+User.create(first_name: "Franklin", middle_initial: "D", last_name: "Roosevelt")
 User.create(first_name: "Woodrow", last_name: "Wilson")
 User.create(first_name: "John", middle_initial: "F", last_name: "Kennedy")

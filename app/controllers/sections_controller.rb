@@ -31,7 +31,7 @@ class SectionsController < ApplicationController
     # @sections = Section.complete.limit(2)
     # render json: @sections
 
-    # ACTIVERECORD QUERYING
+    # EAGER LOADING
     # if it doesn't work, try add references method since it wasnt included in the migration when subject_id was added
     # look at the generated sql query
     # @sections = Section.preload(:subject)

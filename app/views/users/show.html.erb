@@ -3,10 +3,10 @@
 <h2>Profile</h2>
 <p>
   <em>Name:</em> 
-  <%#= @user.full_name %>
+  <%= @user.full_name %>
 </p>
 
-<%#= link_to "Back to list", users_path, class: "move-right" %>
+<%= link_to "Back to list", users_path, class: "move-right" %>
 
-<%= debug(@user) %>
-<%= link_to "Update", user_path(@user), method: :patch %>
+<%#= debug(@user) %>
+<%#= link_to "Update", user_path(@user), method: :patch %>

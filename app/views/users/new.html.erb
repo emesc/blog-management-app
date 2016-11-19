@@ -2,16 +2,8 @@
 
 <%= form_for @user do |f| %>
   <div class="field">
-    <%= f.label :first_name %>
-    <%= f.text_field :first_name %>
-  </div>
-  <div class="field">
-    <%= f.label :middle_initial %>
-    <%= f.text_field :middle_initial %>
-  </div>
-  <div class="field">
-    <%= f.label :last_name %>
-    <%= f.text_field :last_name %>
+    <%= f.label :full_name %>
+    <%= f.text_field :full_name, value: nil, placeholder: "First Name Last Name" %>
   </div>
   <div class="field">
     <%= f.label :password %>

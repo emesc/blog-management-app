@@ -19,6 +19,7 @@ subject.sections.where(complete: false).minimum(:priority)
 # https://stackoverflow.com/questions/21435768/rails-console-find-users-by-array-of-ids
 # http://guides.rubyonrails.org/active_record_querying.html#array-conditions
 # sample queries
+# see sections_controller.rb for eager loading
 ##############################
 subject = Subject.first
 # priority is null
