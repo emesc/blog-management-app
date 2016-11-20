@@ -1,0 +1,18 @@
+<h1><%= @product.name %></h1>
+
+<p>
+  <em>Price: </em>
+  <%= number_to_currency(@product.price) %>
+</p>
+
+<em>Categories:</em>
+<ul>
+  <% @product.categories.each do |category| %>
+    <li><%= category.name %></li>
+  <% end %>
+</ul>
+
+<p>
+  <%= link_to "Edit", product_path(@product) %> | 
+  <%= link_to "Back to list", products_path %>
+</p>

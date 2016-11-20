@@ -26,3 +26,18 @@ User.create(first_name: "George", last_name: "Washington")
 User.create(first_name: "Franklin", middle_initial: "D", last_name: "Roosevelt")
 User.create(first_name: "Woodrow", last_name: "Wilson")
 User.create(first_name: "John", middle_initial: "F", last_name: "Kennedy")
+
+
+Product.create(name: "Wise Man's Fear", price: 8.99)
+Product.create(name: 'Ukelele Starter Kit', price: 59.99)
+Product.create(name: 'KNEX K-Force', price: 16.00)
+Product.create(name: 'Palm Sander', price: 15.59)
+Product.create(name: 'Bed Sheet', price: 39.98)
+Product.create(name: 'Security Camera', price: 119.00)
+
+Category.create(name: 'Books')
+Category.create(name: 'Electronics')
+Category.create(name: 'Music')
+Category.create(name: 'Gifts')
+Category.create(name: 'Tools')
+Category.create(name: 'Home')
