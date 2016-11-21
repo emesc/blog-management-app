@@ -10,6 +10,10 @@
   </head>
 
   <body>
+    <% flash.each do |key, msg| %>
+      <%= content_tag :div, msg, id: key %>
+    <% end %>
+
     <h1>Application Layout</h1>
     <%= yield %>
     <%= yield :footer %>
