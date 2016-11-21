@@ -1,6 +1,6 @@
 class ProductsController < ApplicationController
 
-  before_filter :find_product, only: [:show, :edit, :update, :destroy]
+  before_action :find_product, only: [:edit, :update, :destroy, :show]
 
   def index
     @products = Product.paginate(page: params[:page], per_page: 3)
@@ -8,6 +8,7 @@ class ProductsController < ApplicationController
 
   def new
     @product = Product.new
+    @categories = Category.all
   end
 
   def create
@@ -24,6 +25,7 @@ class ProductsController < ApplicationController
   end
 
   def edit
+    @categories = Category.all
   end
 
   def update
@@ -48,6 +50,6 @@ class ProductsController < ApplicationController
     end
 
     def product_params
-      params.require(:product).permit(:name, :price)
+      params.require(:product).permit(:name, :price, category_ids: [])
     end
 end

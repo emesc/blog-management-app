@@ -19,13 +19,13 @@
     <%= f.text_field :price %>
   </div>
   <div class="field">
-    <%= hidden_field_tag "product[category_ids][]", nil %>
-    <% Category.all.each do |category| %>
-      <%= check_box_tag "product[category_ids][]", category.id, @product.category_ids.include?(category.id), id: dom_id(category) %>
-      <%= label_tag dom_id(category), category.name %><br>
+    <% @categories.each do |category| %>
+      <%#= check_box_tag "product[category_ids][]", category.id, @product.categories.include?(category) %>
+      <%= check_box_tag "product[category_ids][]", category.id, @product.categories.include?(category) %>
+      <%= category.name %><br>
     <% end %>
   </div>
-  <br>
+  <br>  
   <div class="actions">
     <%= f.submit class: "button" %>
   </div>

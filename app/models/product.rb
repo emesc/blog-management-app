@@ -1,3 +1,4 @@
 class Product < ApplicationRecord
-  has_and_belongs_to_many :categories
+  has_many :categorisations
+  has_many :categories, through: :categorisations
 end
