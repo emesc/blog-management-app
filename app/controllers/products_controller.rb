@@ -1,9 +1,10 @@
 class ProductsController < ApplicationController
 
+  before_action :authenticate_user!
   before_action :find_product, only: [:edit, :update, :destroy, :show]
 
   def index
-    @products = Product.paginate(page: params[:page], per_page: 3)
+    @products = Product.paginate(page: params[:page], per_page: 5)
   end
 
   def new
@@ -13,6 +14,7 @@ class ProductsController < ApplicationController
 
   def create
     @product = Product.new(product_params)
+    @product.user_id = current_user.id
     if @product.save
       flash[:notice] = "Product successfully added." 
       redirect_to products_path
@@ -26,6 +28,7 @@ class ProductsController < ApplicationController
 
   def edit
     @categories = Category.all
+    # session[:return_to] ||= request.referer
   end
 
   def update
@@ -50,6 +53,6 @@ class ProductsController < ApplicationController
     end
 
     def product_params
-      params.require(:product).permit(:name, :price, category_ids: [])
+      params.require(:product).permit(:name, :price, :user_id, category_ids: [])
     end
 end

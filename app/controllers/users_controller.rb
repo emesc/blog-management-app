@@ -1,5 +1,8 @@
 class UsersController < ApplicationController
 
+  before_action :authenticate_user!
+  before_action :find_user, only: [:show, :edit, :update, :destroy]
+
   # FOR LAYOUTS
   def index
     @users = User.all
@@ -20,14 +23,56 @@ class UsersController < ApplicationController
   end
 
   def show
-    @user = User.find(params[:id])
     # render layout: false
+    @joined_on = @user.created_at.to_formatted_s(:short)
+    if @user.current_sign_in_at
+      @last_login = @user.current_sign_in_at.to_formatted_s(:short)
+    else
+      @last_login = "never"
+    end
+  end
+
+  def edit
+  end
+
+  def update
+    if user_params[:password].blank?
+      user_params.delete(:password)
+      user_params.delete(:password_confirmation)
+    end
+
+    successfully_updated = if needs_password?(@user, user_params)
+                              @user.update(user_params)
+                           else
+                              @user.update_without_password(user_params)
+                           end
+
+    if successfully_updated
+      flash[:notice] = "User successfully updated."
+      redirect_to @user
+    else
+      render 'edit'
+    end
+  end
+
+  def destroy
+    @user.destroy
+    flash[:notice] = "User successfully deleted."
+    redirect_to users_path
   end
 
   private
 
     def user_params
-      params.require(:user).permit(:full_name, :password)
+      params.require(:user).permit(:full_name, :email, :password, :password_confirmation, :role_id)
+    end
+
+    def find_user
+      @user = User.find(params[:id])
+    end
+
+    def needs_password?(user, params)
+      params[:password].present?
     end
 
 
