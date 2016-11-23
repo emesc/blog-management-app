@@ -1,7 +1,8 @@
 class UsersController < ApplicationController
 
+  load_and_authorize_resource
   before_action :authenticate_user!
-  before_action :find_user, only: [:show, :edit, :update, :destroy]
+  # before_action :find_user, only: [:show, :edit, :update, :destroy]
 
   # FOR LAYOUTS
   def index
@@ -9,11 +10,11 @@ class UsersController < ApplicationController
   end
 
   def new
-    @user = User.new
+    # @user = User.new
   end
 
   def create
-    @user = User.new(user_params)
+    # @user = User.new(user_params)
     if @user.save
       flash[:notice] = "Thank you for registering."
       redirect_to @user
@@ -67,9 +68,9 @@ class UsersController < ApplicationController
       params.require(:user).permit(:full_name, :email, :password, :password_confirmation, :role_id)
     end
 
-    def find_user
-      @user = User.find(params[:id])
-    end
+    # def find_user
+    #   @user = User.find(params[:id])
+    # end
 
     def needs_password?(user, params)
       params[:password].present?

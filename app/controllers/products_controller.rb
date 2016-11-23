@@ -1,19 +1,20 @@
 class ProductsController < ApplicationController
 
+  load_and_authorize_resource
   before_action :authenticate_user!
-  before_action :find_product, only: [:edit, :update, :destroy, :show]
+  # before_action :find_product, only: [:edit, :update, :destroy, :show]
 
   def index
     @products = Product.paginate(page: params[:page], per_page: 5)
   end
 
   def new
-    @product = Product.new
+    # @product = Product.new
     @categories = Category.all
   end
 
   def create
-    @product = Product.new(product_params)
+    # @product = Product.new(product_params)
     @product.user_id = current_user.id
     if @product.save
       flash[:notice] = "Product successfully added." 
@@ -48,9 +49,9 @@ class ProductsController < ApplicationController
 
   private
 
-    def find_product
-      @product = Product.find(params[:id])
-    end
+    # def find_product
+    #   @product = Product.find(params[:id])
+    # end
 
     def product_params
       params.require(:product).permit(:name, :price, :user_id, category_ids: [])
