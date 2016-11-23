@@ -36,3 +36,21 @@ subject.sections.where(["complete = ? and priority in (?)", false, [3, 9]])
 subject.sections.where(complete: false).where(priority: [3, 9])
 # passing a hash condition
 subject.sections.where({complete: false, priority: 1..10})
+
+##############################
+# Eager loading for better performance
+# 
+# 
+# sample queries
+# see products_controller.rb
+##############################
+def index
+  # initial
+  @products = Product.all
+  # reduce the number of calls to the db by eager loading
+  # use the name of the association, belongs_to :user in the Product model
+  @products = Product.all.includes(:user)
+  # add another
+  # use the name of the association, has_many :categories in the Product model
+  @products = Product.all.includes(:user, :categories)
+end

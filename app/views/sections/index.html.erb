@@ -12,7 +12,7 @@
     <% @sections.each do |section| %>
       <tr>
         <%# subject_title only for joins-select(-where); otherwise, subject.title %>
-        <td><%= section.subject_title %></td>
+        <td><%= section.subject.title %></td>
         <td><%= section.title %></td>
         <td><%= section.complete %></td>
         <td><%= section.priority %></td>

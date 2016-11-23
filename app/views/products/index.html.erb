@@ -8,6 +8,7 @@
 <table>
   <thead>
     <tr>
+      <th>Categories</th>
       <th>Name</th>
       <th>Price</th>
       <th>Seller</th>
@@ -17,6 +18,7 @@
   <tbody>
     <% @products.each do |product| %>
       <tr>
+        <td><%= product.categories.map(&:name).join(', ') %></td>
         <td><%= product.name %></td>
         <td><%= number_to_currency(product.price) %></td>
         <td><%= product.user.full_name %></td>
