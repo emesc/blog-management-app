@@ -19,8 +19,7 @@
     <%= f.text_field :price %>
   </div>
   <div class="field">
-    <% @categories.each do |category| %>
-      <%#= check_box_tag "product[category_ids][]", category.id, @product.categories.include?(category) %>
+    <% @categories.all.each do |category| %>
       <%= check_box_tag "product[category_ids][]", category.id, @product.categories.include?(category) %>
       <%= category.name %><br>
     <% end %>

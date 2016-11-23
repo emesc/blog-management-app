@@ -1,5 +1,14 @@
 class User < ApplicationRecord
+  # Include default devise modules. Others available are:
+  # :confirmable, :lockable, :timeoutable and :omniauthable
+  devise :database_authenticatable, :registerable,
+         :recoverable, :rememberable, :trackable, :validatable
 
+  belongs_to :role
+  has_many :products
+
+  validates_presence_of :full_name
+  before_validation :assign_role
   ##################################################
   # FOR 1-1 MAPPING BETWEEN VIEW AND DB TABLE FIELDS
   # def full_name
@@ -32,5 +41,10 @@ class User < ApplicationRecord
     split = name.split(' ', 2)
     self.first_name = split.first
     self.last_name = split.last
+  end
+
+  # default user to "Regular" role upon sign up
+  def assign_role
+    self.role = Role.find_by name: "Regular" if self.role.nil?
   end
 end
