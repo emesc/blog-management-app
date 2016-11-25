@@ -1,4 +1,9 @@
 ##############################
+# RYAN BATES'S RAILSCASTS
+# concepts learnt from episodes in ascending order
+##############################
+
+##############################
 # ActiveRecord::Calculations
 # http://api.rubyonrails.org/classes/ActiveRecord/Calculations.html
 # sample calculations
@@ -43,6 +48,7 @@ subject.sections.where({complete: false, priority: 1..10})
 # 
 # sample queries
 # see products_controller.rb
+# git commit -m 'Used eager loading on products and sections indices.'
 ##############################
 def index
   # initial
@@ -54,3 +60,63 @@ def index
   # use the name of the association, has_many :categories in the Product model
   @products = Product.all.includes(:user, :categories)
 end
+
+##############################
+# Has many through checkboxes
+# 
+# 1) products/_form.html.erb
+# 2) products_controller.rb
+# git commit -m 'Added categorisation.'
+##############################
+# 1
+# returns nil if no checkbox is ticked; otherwise, it wont update the category_ids[] attr
+hidden_field_tag "product[category_ids][]", nil
+# note the [] after category_ids - important for passing a collection through the controller
+# boolean at the end to tick those that were previously set
+check_box_tag "product[category_ids][]", category.id, @product.categories.include?(category)
+# 2
+# permit the category_ids attribut with [] for the same reason as above
+permit(..., category_ids: [])
+
+##############################
+# looping through flash
+# http://apidock.com/rails/ActionView/Helpers/TagHelper/content_tag
+# application.html.erb
+# git commit -m 'Updated flash message in the layout.'
+##############################
+# content_tag(name, content/option with block, options)
+# returns an HTML block tag of type <name> surrounding the <content>
+# add HTML attributes by passing an attributes has to options
+# edit options according to css selector, eg, id: "flash-#{key}"
+flash.each do |key, msg|
+  content_tag :div, msg, id: key
+
+##############################
+# counter cache column
+# 1) subjects/index.html.erb
+# size vs length vs count
+# http://work.stevegrossi.com/2015/04/25/how-to-count-with-activerecord/
+# http://mensfeld.pl/2014/09/activerecord-count-vs-length-vs-size-and-what-will-happen-if-you-use-it-the-way-you-shouldnt/
+# 2) add_sections_count_to_subjects.rb (migration file)
+# Ryan Bates's code is working, if it doesn't the first time, try rails db:reset and then reseed
+# 3) section.rb
+# git commit -m 'Added sections counter to subjects.'
+##############################
+# 1 
+@subjects.each do |subject|
+  pluralize(subject.sections.size, 'section'
+# 2
+# default to 0 to work properly
+# add_column tablename, modelassociationname_count, type, default: 0
+add_column :subjects, :sections_count, :integer, default: 0
+# set the value of the count column in each current subject
+# for no of tasks, used length rather than size
+# size would use the counter cache column which would have its default value of zero
+Subject.all.each do |s|
+  s.update_attribute(:sections_count, s.sections.length)
+# to avoid the possibility of caching column info,
+# reset Subject column info since it's being modified in the same migration in which we add a column
+Subject.reset_column_information
+# 3
+# tell Rails to use sections_count column as counter cache column
+belongs_to :subject, counter_cache: true

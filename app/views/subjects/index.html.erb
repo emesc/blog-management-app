@@ -8,16 +8,21 @@
   <thead>
     <tr>
       <th>Title</th>
+      <th colspan="1"></th>
     </tr>
   </thead>
   <tbody>
     <% @subjects.each do |subject| %>
       <tr>
-        <td><%= subject.title %></td>
+        <td><%= link_to subject.title, subject_path(subject) %></td>
+        <td>(<%= pluralize(subject.sections.size, 'section') %>)</td>
       </tr>
     <% end %>
   </tbody>
 </table>
+
+<br>
+<p><%= link_to "Sections list", sections_path %></p>
 
 <% content_for :footer do %>
   <br>

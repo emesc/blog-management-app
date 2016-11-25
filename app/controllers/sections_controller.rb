@@ -49,6 +49,10 @@ class SectionsController < ApplicationController
     # @sections = Section.joins(:subject).select("sections.*, subjects.title as subject_title")
     # look at the generated sql query; uses INNER JOIN
     # @sections = Section.joins(:subject).select("sections.*, subjects.title as subject_title").where("subject_title = ?", "Food")
-    @sections = Section.all.includes(:subject)
+    @sections = Section.all#.includes(:subject)
+  end
+  
+  def show
+    @section = Section.find(params[:id])
   end
 end
