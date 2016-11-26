@@ -17,15 +17,19 @@
     </tr>
   </thead>
   <tbody>
-    <% @sections.each do |section| %>
-      <tr>
-        <%# subject_title only for joins-select(-where); otherwise, subject.title %>
-        <td><%= section.subject_title %></td>
-        <td><%= link_to section.title, section %></td>
-        <td><%= section.complete %></td>
-        <td><%= section.priority %></td>
-        <td><%= truncate(section.body, length: 80, separator: ' ') %></td>
-      </tr>
+    <% if @sections.present? %>
+      <% @sections.each do |section| %>
+        <tr>
+          <%# subject_title only for joins-select(-where); otherwise, subject.title %>
+          <td><%= section.subject_title %></td>
+          <td><%= link_to section.title, section %></td>
+          <td><%= section.complete %></td>
+          <td><%= section.priority %></td>
+          <td><%= truncate(section.body, length: 80, separator: ' ') %></td>
+        </tr>
+      <% end %>
+    <% else %>
+      <p>There are no sections containing <em><%= params[:search_param] %></em>.</p>
     <% end %>
   </tbody>
 </table>
