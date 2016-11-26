@@ -120,3 +120,26 @@ Subject.reset_column_information
 # 3
 # tell Rails to use sections_count column as counter cache column
 belongs_to :subject, counter_cache: true
+
+##############################
+# SEARCH BOX IN SECTIONS
+# 1) section.rb
+# 2) sections_controller.rb
+# 3) products_controller.rb
+# git commit -m 'Added search in sections from UI.'
+##############################
+# 1
+# changed default scope to list incomplete sections then accdg to priorities.
+# tried to add another scope using order() at the bottom of default_scope ordered by creation date but not working
+# that another scope works only if default is commented/removed so i chained the 2 order methods
+default_scope -> { order(complete: :asc).order(priority: :asc) }
+# 2
+# if using only the sql like search, N+.. queries are generated
+# @sections = Section.where("title LIKE ? OR body LIKE ?", "%#{params[:search_param]}%", "%#{params[:search_param]}%")
+# joins-select performs better, but i havent tried it w eager loading
+# must specify which title the query belongs to as subject also has title attribute
+@sections = Section.joins(:subject).select("sections.*, subjects.title as subject_title").where("sections.title LIKE ? OR sections.body LIKE ?", "%#{params[:search_param]}%", "%#{params[:search_param]}%")
+# use subject_title in sections/index view
+section.subject_title
+# let user know if no match found; why is <% if @sections %> not working?
+if @sections.present?
