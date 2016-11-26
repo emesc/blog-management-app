@@ -32,6 +32,7 @@ gem 'jbuilder', '~> 2.5'
 gem 'will_paginate', '~> 3.1', '>= 3.1.5'
 gem 'devise', '~> 4.2'
 gem 'cancancan', '~> 1.15'
+gem 'faker', '~> 1.6', '>= 1.6.6'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console

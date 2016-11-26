@@ -14,8 +14,11 @@
 
 news = Subject.create(title: 'News')
 news.sections.create(title: 'Marfa pickled DIY', complete: true, priority: 6, body: "Salvia listicle succulents man bun mlkshk, roof party hoodie unicorn enamel pin chillwave cornhole 3 wolf moon godard 8-bit. Blue bottle snackwave authentic, drinking vinegar keytar knausgaard swag etsy single-origin coffee butcher literally health goth.")
-news.sections.create(title: 'Williamsburg trust fund', complete: false, priority: 3, body: "Deep v etsy man braid DIY chartreuse meditation, shabby chic vice tote bag beard marfa street art franzen butcher post-ironic. Lyft tote bag before they sold out polaroid gentrify. Chicharrones vaporware narwhal tattooed activated charcoal.")
-news.sections.create(title: 'Typewriter organic austin', complete: false, priority: 3, body: "Keytar swag pinterest, craft beer sustainable lyft trust fund distillery hoodie kinfolk ramps jean shorts freegan mixtape. Knausgaard affogato food truck umami flexitarian fixie, plaid yr truffaut locavore shabby chic banh mi chicharrones bicycle rights.")
+news.sections.create(title: 'Williamsburg trust fund', complete: false, priority: 13, body: "Deep v etsy man braid DIY chartreuse meditation, shabby chic vice tote bag beard marfa street art franzen butcher post-ironic. Lyft tote bag before they sold out polaroid gentrify. Chicharrones vaporware narwhal tattooed activated charcoal.")
+news.sections.create(title: 'Typewriter organic austin', complete: false, priority: 12, body: "Keytar swag pinterest, craft beer sustainable lyft trust fund distillery hoodie kinfolk ramps jean shorts freegan mixtape. Knausgaard affogato food truck umami flexitarian fixie, plaid yr truffaut locavore shabby chic banh mi chicharrones bicycle rights.")
+10.times do
+  title = Faker::Lorem.sentence
+end
 
 food = Subject.create(title: 'Food')
 food.sections.create(title: 'PBR&B cold-pressed vaporware', complete: false, priority: 9, body: "YOLO gentrify ennui, authentic portland bespoke raclette leggings master cleanse selvage fingerstache intelligentsia. Fam pok pok typewriter, raw denim normcore succulents polaroid poke.")
@@ -31,6 +34,36 @@ books.sections.create(title: 'Schlitz migas lomo', complete: true, priority: 1, 
 books.sections.create(title: 'Viral subway tile', complete: false, priority: 8, body: "Tofu mlkshk kitsch, literally poutine gentrify selvage. Fanny pack fingerstache you probably haven't heard of them, mlkshk 90's kickstarter truffaut intelligentsia.")
 books.sections.create(title: 'Pour-over tacos yuccie', complete: false, priority: 6, body: "Art party poke brooklyn, church-key PBR&B you probably haven't heard of them lumbersexual iPhone four loko pop-up actually trust fund wayfarers next level blue bottle.")
 books.sections.create(title: 'Ennui godard ', complete: true, priority: 11, body: "Cornhole sriracha health goth, photo booth dreamcatcher edison bulb small batch salvia ugh chillwave leggings kitsch gochujang mlkshk. Seitan selvage prism letterpress, vegan lumbersexual sriracha keffiyeh tbh taxidermy blue bottle.")
+
+films = Subject.create(title: 'Films')
+f = 13
+10.times do
+  title = Faker::Company.catch_phrase
+  complete = [true, false].sample
+  body = Faker::Lorem.sentences(3, true).join(' ')
+  f += 1
+  films.sections.create(title: title, complete: complete, priority: f, body: body)
+end
+
+games = Subject.create(title: 'Games')
+g = 24
+10.times do
+  title = Faker::Company.catch_phrase
+  complete = [true, false].sample
+  g += 1
+  body = Faker::Lorem.sentences(3, true).join(' ')
+  games.sections.create(title: title, complete: complete, priority: g, body: body)
+end
+
+clothing = Subject.create(title: 'Clothing')
+c = 35
+10.times do
+  title = Faker::Company.catch_phrase
+  complete = [true, false].sample
+  c += 1
+  body = Faker::Lorem.sentences(3, true).join(' ')
+  clothing.sections.create(title: title, complete: complete, priority: c, body: body)
+end
 
 r1 = Role.create(name: "Regular", description: "Can read items")
 r2 = Role.create(name: "Seller", description: "Can read and create items. Can update and destroy own items")

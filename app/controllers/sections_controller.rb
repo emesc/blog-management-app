@@ -49,7 +49,10 @@ class SectionsController < ApplicationController
     # @sections = Section.joins(:subject).select("sections.*, subjects.title as subject_title")
     # look at the generated sql query; uses INNER JOIN
     # @sections = Section.joins(:subject).select("sections.*, subjects.title as subject_title").where("subject_title = ?", "Food")
-    @sections = Section.all#.includes(:subject)
+    # for search box in sections
+    # look at the generated sql query vs without joins-select
+    # specified which title the query belongs to
+    @sections = Section.joins(:subject).select("sections.*, subjects.title as subject_title").where("sections.title LIKE ? OR sections.body LIKE ?", "%#{params[:search_param]}%", "%#{params[:search_param]}%")
   end
   
   def show

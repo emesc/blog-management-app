@@ -1,3 +1,11 @@
+<div id="section-lookup">
+  <%= form_tag sections_path, method: :get, id: "section-lookup-form" do %>
+    <%#= label_tag :search_param, "Search a section" %>
+    <%= text_field_tag :search_param, nil, autofocus: true, placeholder: "Search in sections" %>
+    <%= submit_tag 'Search', class: "button" %>
+  <% end %>
+</div>
+
 <table>
   <thead>
     <tr>
@@ -12,14 +20,15 @@
     <% @sections.each do |section| %>
       <tr>
         <%# subject_title only for joins-select(-where); otherwise, subject.title %>
-        <td><%= section.subject.title %></td>
-        <td><%= section.title %></td>
+        <td><%= section.subject_title %></td>
+        <td><%= link_to section.title, section %></td>
         <td><%= section.complete %></td>
         <td><%= section.priority %></td>
-        <td><%= truncate(section.body, length: 50, separator: ' ') %></td>
+        <td><%= truncate(section.body, length: 80, separator: ' ') %></td>
       </tr>
     <% end %>
   </tbody>
 </table>
 <br>
-<%= link_to "Subjects list", subjects_path %>
+<%= link_to "All sections" %><br>
+<%= link_to "All subjects", subjects_path %>
