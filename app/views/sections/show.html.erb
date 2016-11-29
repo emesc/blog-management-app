@@ -3,5 +3,18 @@
 <p><strong>Content:</strong> </p>
 <p><%= @section.body %></p>
 <br>
+<h2>Comments</h2>
+<div class="comments-section">
+  <% @comments.each do |comment| %>
+    <p><%= comment.content %></p>
+    <hr align="left">
+  <% end %>
+</div>
+<br>
+<%= form_for(Comment.new, url: section_comments_path(@section)) do |f| %>
+  <p><%= f.text_area :content, size: "50x5" %></p>
+  <p><%= submit_tag "Add Comment", class: "button" %></p>
+<% end %>
+<br>
 <p><%= link_to "Subjects list", subjects_path %></p>
 <p><%= link_to "Sections list", sections_path %></p>

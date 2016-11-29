@@ -143,3 +143,19 @@ default_scope -> { order(complete: :asc).order(priority: :asc) }
 section.subject_title
 # let user know if no match found; why is <% if @sections %> not working?
 if @sections.present?
+
+##############################
+# XSS
+# Rails 5 auto sanitizes contents from user
+# https://stackoverflow.com/questions/7861971/generate-model-using-userreferences-vs-user-idinteger
+##############################
+# you can try to escape user input in the console
+> CGI::escapeHTML("<script>alert(document.cookie);</script>")
+=> "&lt;script&gt;alert(document.cookie);&lt;/script&gt;"
+# user_id vs user:references in rails generate model
+# both will add section_id when you run the migration
+$ rails g model comment content:text section:integer
+# but below will add a belongs_to :section in the Comment model
+# ActiveRecord will assume that the foreign key is kept in the section_id column and it will use a model named Section to instantiate the related section
+# below will also add an index on the new section_id column
+$ rails g model comment content:text section:references

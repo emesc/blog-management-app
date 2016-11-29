@@ -6,6 +6,7 @@ class User < ApplicationRecord
 
   belongs_to :role
   has_many :products
+  has_many :comments
 
   validates_presence_of :full_name
   before_validation :assign_role

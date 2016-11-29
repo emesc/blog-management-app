@@ -57,5 +57,6 @@ class SectionsController < ApplicationController
   
   def show
     @section = Section.find(params[:id])
+    @comments = @section.comments
   end
 end
