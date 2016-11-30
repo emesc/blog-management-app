@@ -13,36 +13,36 @@
 # Section.create(title: 'Authentic food truck austin', complete: true)
 
 news = Subject.create(title: 'News')
-news.sections.create(title: 'Marfa pickled DIY', complete: true, priority: 6, body: "Salvia listicle succulents man bun mlkshk, roof party hoodie unicorn enamel pin chillwave cornhole 3 wolf moon godard 8-bit. Blue bottle snackwave authentic, drinking vinegar keytar knausgaard swag etsy single-origin coffee butcher literally health goth.")
-news.sections.create(title: 'Williamsburg trust fund', complete: false, priority: 13, body: "Deep v etsy man braid DIY chartreuse meditation, shabby chic vice tote bag beard marfa street art franzen butcher post-ironic. Lyft tote bag before they sold out polaroid gentrify. Chicharrones vaporware narwhal tattooed activated charcoal.")
-news.sections.create(title: 'Typewriter organic austin', complete: false, priority: 12, body: "Keytar swag pinterest, craft beer sustainable lyft trust fund distillery hoodie kinfolk ramps jean shorts freegan mixtape. Knausgaard affogato food truck umami flexitarian fixie, plaid yr truffaut locavore shabby chic banh mi chicharrones bicycle rights.")
-10.times do
-  title = Faker::Lorem.sentence
-end
+news.sections.create(title: 'Marfa pickled DIY', complete: true, priority: 6, body: "Salvia listicle succulents man bun mlkshk, roof party hoodie unicorn enamel pin chillwave cornhole 3 wolf moon godard 8-bit. Blue bottle snackwave authentic, drinking vinegar keytar knausgaard swag etsy single-origin coffee butcher literally health goth.", deadline: 2.days.from_now)
+news.sections.create(title: 'Williamsburg trust fund', complete: false, priority: 13, body: "Deep v etsy man braid DIY chartreuse meditation, shabby chic vice tote bag beard marfa street art franzen butcher post-ironic. Lyft tote bag before they sold out polaroid gentrify. Chicharrones vaporware narwhal tattooed activated charcoal.", deadline: 1.day.from_now)
+news.sections.create(title: 'Typewriter organic austin', complete: false, priority: 12, body: "Keytar swag pinterest, craft beer sustainable lyft trust fund distillery hoodie kinfolk ramps jean shorts freegan mixtape. Knausgaard affogato food truck umami flexitarian fixie, plaid yr truffaut locavore shabby chic banh mi chicharrones bicycle rights.", deadline: 2.days.from_now)
 
 food = Subject.create(title: 'Food')
-food.sections.create(title: 'PBR&B cold-pressed vaporware', complete: false, priority: 9, body: "YOLO gentrify ennui, authentic portland bespoke raclette leggings master cleanse selvage fingerstache intelligentsia. Fam pok pok typewriter, raw denim normcore succulents polaroid poke.")
-food.sections.create(title: 'Unicorn af cronut', complete: true, priority: 4, body: "Tattooed waistcoat ethical fashion axe. Sartorial chillwave migas franzen photo booth, keytar disrupt kale chips bushwick lomo. Quinoa brunch pug, craft beer direct trade kickstarter butcher ethical mixtape lomo yuccie prism vice hammock jianbing.")
-food.sections.create(title: 'Authentic food truck austin', complete: true, priority: 3, body: "Shoreditch green juice activated charcoal af church-key humblebrag. Put a bird on it pug typewriter normcore hella echo park. Trust fund wolf tofu brooklyn snackwave, franzen banjo meditation DIY literally hell of cornhole.")
-food.sections.create(title: 'Drinking vinegar flexitarian', complete: true, priority: 5, body: "Venmo VHS hot chicken fixie. Flexitarian DIY blog meditation woke art party. Cornhole umami fashion axe raw denim.")
-food.sections.create(title: 'Green juice chicharrones', complete: true, priority: 10, body: "Hashtag vinyl. IPhone austin ramps, vinyl try-hard twee banjo. XOXO biodiesel synth ugh. Green juice truffaut church-key, portland lumbersexual vaporware keytar edison bulb stumptown direct trade art party 8-bit.")
-food.sections.create(title: 'Ramps disrupt', complete: true, priority: 7, body: "Tousled iPhone woke. Quinoa occupy etsy, literally trust fund irony fam. Biodiesel salvia thundercats ugh.")
-food.sections.create(title: 'Slow-carb taxidermy affogato', complete: true, priority: 2, body: "Thundercats irony air plant portland shabby chic normcore lo-fi. Chia prism echo park, meggings hexagon waistcoat roof party kinfolk vape live-edge whatever copper mug. Edison bulb pabst hoodie, everyday carry salvia typewriter fashion axe pug wayfarers squid lo-fi schlitz neutra blue bottle umami.")
+food.sections.create(title: 'PBR&B cold-pressed vaporware', complete: false, priority: 9, body: "YOLO gentrify ennui, authentic portland bespoke raclette leggings master cleanse selvage fingerstache intelligentsia. Fam pok pok typewriter, raw denim normcore succulents polaroid poke.", deadline: 1.week.ago)
+food.sections.create(title: 'Unicorn af cronut', complete: true, priority: 4, body: "Tattooed waistcoat ethical fashion axe. Sartorial chillwave migas franzen photo booth, keytar disrupt kale chips bushwick lomo. Quinoa brunch pug, craft beer direct trade kickstarter butcher ethical mixtape lomo yuccie prism vice hammock jianbing.", deadline: 2.weeks.from_now)
+food.sections.create(title: 'Authentic food truck austin', complete: true, priority: 3, body: "Shoreditch green juice activated charcoal af church-key humblebrag. Put a bird on it pug typewriter normcore hella echo park. Trust fund wolf tofu brooklyn snackwave, franzen banjo meditation DIY literally hell of cornhole.", deadline: 5.days.from_now)
+food.sections.create(title: 'Drinking vinegar flexitarian', complete: true, priority: 5, body: "Venmo VHS hot chicken fixie. Flexitarian DIY blog meditation woke art party. Cornhole umami fashion axe raw denim.", deadline: 4.weeks.from_now)
+food.sections.create(title: 'Green juice chicharrones', complete: true, priority: 10, body: "Hashtag vinyl. IPhone austin ramps, vinyl try-hard twee banjo. XOXO biodiesel synth ugh. Green juice truffaut church-key, portland lumbersexual vaporware keytar edison bulb stumptown direct trade art party 8-bit.", deadline: 20.days.ago)
+food.sections.create(title: 'Ramps disrupt', complete: true, priority: 7, body: "Tousled iPhone woke. Quinoa occupy etsy, literally trust fund irony fam. Biodiesel salvia thundercats ugh.", deadline: 2.weeks.ago)
+food.sections.create(title: 'Slow-carb taxidermy affogato', complete: true, priority: 2, body: "Thundercats irony air plant portland shabby chic normcore lo-fi. Chia prism echo park, meggings hexagon waistcoat roof party kinfolk vape live-edge whatever copper mug. Edison bulb pabst hoodie, everyday carry salvia typewriter fashion axe pug wayfarers squid lo-fi schlitz neutra blue bottle umami.", deadline: 3.weeks.from_now)
 
 books = Subject.create(title: 'Books')
-books.sections.create(title: 'Schlitz migas lomo', complete: true, priority: 1, body: "Drinking vinegar banjo iPhone, locavore gentrify pitchfork cornhole pop-up chillwave hell of mustache intelligentsia butcher pour-over. Vinyl typewriter unicorn, vaporware chicharrones jean shorts la croix.")
-books.sections.create(title: 'Viral subway tile', complete: false, priority: 8, body: "Tofu mlkshk kitsch, literally poutine gentrify selvage. Fanny pack fingerstache you probably haven't heard of them, mlkshk 90's kickstarter truffaut intelligentsia.")
-books.sections.create(title: 'Pour-over tacos yuccie', complete: false, priority: 6, body: "Art party poke brooklyn, church-key PBR&B you probably haven't heard of them lumbersexual iPhone four loko pop-up actually trust fund wayfarers next level blue bottle.")
-books.sections.create(title: 'Ennui godard ', complete: true, priority: 11, body: "Cornhole sriracha health goth, photo booth dreamcatcher edison bulb small batch salvia ugh chillwave leggings kitsch gochujang mlkshk. Seitan selvage prism letterpress, vegan lumbersexual sriracha keffiyeh tbh taxidermy blue bottle.")
+books.sections.create(title: 'Schlitz migas lomo', complete: true, priority: 1, body: "Drinking vinegar banjo iPhone, locavore gentrify pitchfork cornhole pop-up chillwave hell of mustache intelligentsia butcher pour-over. Vinyl typewriter unicorn, vaporware chicharrones jean shorts la croix.", deadline: 1.month.from_now)
+books.sections.create(title: 'Viral subway tile', complete: false, priority: 8, body: "Tofu mlkshk kitsch, literally poutine gentrify selvage. Fanny pack fingerstache you probably haven't heard of them, mlkshk 90's kickstarter truffaut intelligentsia.", deadline: 2.days.ago)
+books.sections.create(title: 'Pour-over tacos yuccie', complete: false, priority: 6, body: "Art party poke brooklyn, church-key PBR&B you probably haven't heard of them lumbersexual iPhone four loko pop-up actually trust fund wayfarers next level blue bottle.", deadline: 6.days.from_now)
+books.sections.create(title: 'Ennui godard ', complete: true, priority: 11, body: "Cornhole sriracha health goth, photo booth dreamcatcher edison bulb small batch salvia ugh chillwave leggings kitsch gochujang mlkshk. Seitan selvage prism letterpress, vegan lumbersexual sriracha keffiyeh tbh taxidermy blue bottle.", deadline: 5.weeks.ago)
 
 films = Subject.create(title: 'Films')
 f = 13
+date1 = Date.today.to_time
+date2 = 4.months.from_now.to_time
 10.times do
   title = Faker::Company.catch_phrase
   complete = [true, false].sample
   body = Faker::Lorem.sentences(3, true).join(' ')
   f += 1
-  films.sections.create(title: title, complete: complete, priority: f, body: body)
+  deadline = Time.at((date2.to_f - date1.to_f) * rand + date1.to_f)
+  films.sections.create(title: title, complete: complete, priority: f, body: body, deadline: deadline)
 end
 
 games = Subject.create(title: 'Games')
@@ -52,7 +52,8 @@ g = 24
   complete = [true, false].sample
   g += 1
   body = Faker::Lorem.sentences(3, true).join(' ')
-  games.sections.create(title: title, complete: complete, priority: g, body: body)
+  deadline = Time.at((date2.to_f - date1.to_f) * rand + date1.to_f)
+  games.sections.create(title: title, complete: complete, priority: g, body: body, deadline: deadline)
 end
 
 clothing = Subject.create(title: 'Clothing')
@@ -62,7 +63,8 @@ c = 35
   complete = [true, false].sample
   c += 1
   body = Faker::Lorem.sentences(3, true).join(' ')
-  clothing.sections.create(title: title, complete: complete, priority: c, body: body)
+  deadline = Time.at((date2.to_f - date1.to_f) * rand + date1.to_f)
+  clothing.sections.create(title: title, complete: complete, priority: c, body: body, deadline: deadline)
 end
 
 r1 = Role.create(name: "Regular", description: "Can read items")

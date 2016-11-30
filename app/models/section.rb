@@ -4,7 +4,7 @@ class Section < ApplicationRecord
 
   # define scopes for incomplete and sorted sections (default order is from latest)
   # default_scope      -> { order(id: :desc) }
-  default_scope      -> { order(complete: :asc).order(priority: :asc) }
+  default_scope      -> { order(deadline: :asc).order(priority: :asc) }
   scope :incomplete, -> { where(complete: false) }
   scope :complete,   -> { where(complete: true) }
 

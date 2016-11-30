@@ -53,7 +53,10 @@ class SectionsController < ApplicationController
     # look at the generated sql query vs without joins-select
     # specified which title the query belongs to
     @sections = Section.joins(:subject).select("sections.*, subjects.title as subject_title").where("sections.title LIKE ? OR sections.body LIKE ?", "%#{params[:search_param]}%", "%#{params[:search_param]}%")
-    @list = true
+    # detailed or list view
+    @detailed = false
+    # below will generate a hash which keys are a date representing the first day of a month and which values are an array of all the sections whose due date falls within that month
+    @sections_by_month = @sections.group_by { |s| s.deadline.beginning_of_month }
   end
   
   def show

@@ -7,7 +7,7 @@
   <% end %>
 </div>
 
-<% if @list %>
+<% if !@detailed %>
   <table>
     <thead>
       <tr>
@@ -15,12 +15,13 @@
       </tr>
     </thead>
     <tbody>
-      <% @sections.in_groups_of(4, false) do |sections| %>
+      <% @sections_by_month.each do |month, sections| %>
+        <h3><%= month.strftime("%B %Y") %></h3>
         <tr>
-          <% for section in sections %>
-            <td><%= link_to section.title, section_path(section) %></td>
+          <% sections.each do |section| %>
+            <p><%= link_to section.title, section_path(section) %> due on <%= section.deadline.to_date.to_s(:long) %></p>
           <% end %>
-        <tr>
+        </tr>
       <% end %>
     </tbody>
   </table>
@@ -32,6 +33,7 @@
         <th>Title</th>
         <th>Done</th>
         <th>Priority</th>
+        <th>Deadline</th>
         <th>Body</th>
       </tr>
     </thead>
@@ -44,6 +46,7 @@
             <td><%= link_to section.title, section_path(section) %></td>
             <td><%= section.complete %></td>
             <td><%= section.priority %></td>
+            <td><%= section.deadline %></td>
             <td><%= truncate(section.body, length: 80, separator: ' ') %></td>
           </tr>
         <% end %>

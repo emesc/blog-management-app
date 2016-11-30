@@ -168,4 +168,11 @@ $ rails g model comment content:text section:references
 # if list is not exactly divisible, it will throw a NoMethodError (undefined method `title' for nil:NilClass)
 # pass the false flag as second argument to the in_groups_of method
 @sections.in_groups_of(5, false) do |sections|
-  
+
+##############################
+# GROUP_BY
+#
+# https://stackoverflow.com/questions/2683857/how-to-generate-a-random-date-and-time-between-two-dates
+##############################
+# 1) section.rb
+# change default order to sort by deadline
