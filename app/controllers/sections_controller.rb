@@ -53,6 +53,7 @@ class SectionsController < ApplicationController
     # look at the generated sql query vs without joins-select
     # specified which title the query belongs to
     @sections = Section.joins(:subject).select("sections.*, subjects.title as subject_title").where("sections.title LIKE ? OR sections.body LIKE ?", "%#{params[:search_param]}%", "%#{params[:search_param]}%")
+    @list = true
   end
   
   def show

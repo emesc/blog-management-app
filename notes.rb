@@ -159,3 +159,13 @@ $ rails g model comment content:text section:integer
 # ActiveRecord will assume that the foreign key is kept in the section_id column and it will use a model named Section to instantiate the related section
 # below will also add an index on the new section_id column
 $ rails g model comment content:text section:references
+
+##############################
+# IN_GROUPS_OF
+#
+# http://apidock.com/rails/Array/in_groups_of
+##############################
+# if list is not exactly divisible, it will throw a NoMethodError (undefined method `title' for nil:NilClass)
+# pass the false flag as second argument to the in_groups_of method
+@sections.in_groups_of(5, false) do |sections|
+  

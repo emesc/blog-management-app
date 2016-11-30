@@ -1,3 +1,4 @@
+<h2>Sections</h2>
 <div id="section-lookup">
   <%= form_tag sections_path, method: :get, id: "section-lookup-form" do %>
     <%#= label_tag :search_param, "Search a section" %>
@@ -6,33 +7,52 @@
   <% end %>
 </div>
 
-<table>
-  <thead>
-    <tr>
-      <th>Subject</th>
-      <th>Title</th>
-      <th>Done</th>
-      <th>Priority</th>
-      <th>Body</th>
-    </tr>
-  </thead>
-  <tbody>
-    <% if @sections.present? %>
-      <% @sections.each do |section| %>
+<% if @list %>
+  <table>
+    <thead>
+      <tr>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @sections.in_groups_of(4, false) do |sections| %>
         <tr>
-          <%# subject_title only for joins-select(-where); otherwise, subject.title %>
-          <td><%= section.subject_title %></td>
-          <td><%= link_to section.title, section %></td>
-          <td><%= section.complete %></td>
-          <td><%= section.priority %></td>
-          <td><%= truncate(section.body, length: 80, separator: ' ') %></td>
-        </tr>
+          <% for section in sections %>
+            <td><%= link_to section.title, section_path(section) %></td>
+          <% end %>
+        <tr>
       <% end %>
-    <% else %>
-      <p>There are no sections containing <em><%= params[:search_param] %></em>.</p>
-    <% end %>
-  </tbody>
-</table>
+    </tbody>
+  </table>
+<% else %>
+  <table>
+    <thead>
+      <tr>
+        <th>Subject</th>
+        <th>Title</th>
+        <th>Done</th>
+        <th>Priority</th>
+        <th>Body</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% if @sections.present? %>
+        <% @sections.each do |section| %>
+          <tr>
+            <%# subject_title only for joins-select(-where); otherwise, subject.title %>
+            <td><%= section.subject_title %></td>
+            <td><%= link_to section.title, section_path(section) %></td>
+            <td><%= section.complete %></td>
+            <td><%= section.priority %></td>
+            <td><%= truncate(section.body, length: 80, separator: ' ') %></td>
+          </tr>
+        <% end %>
+      <% else %>
+        <p>There are no sections containing <em><%= params[:search_param] %></em>.</p>
+      <% end %>
+    </tbody>
+  </table>
+<% end %>
 <br>
 <%= link_to "All sections" %><br>
 <%= link_to "All subjects", subjects_path %>
