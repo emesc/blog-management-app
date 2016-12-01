@@ -1,0 +1,40 @@
+<%= form_for @section do |f| %>
+  <% if @section.errors.any? %>
+    <div class="error_messages">
+      <h2><%= pluralize(@section.errors.count, 'error') %> prohibited this section from being saved</h2>
+      <ul>
+        <% @section.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :title %>
+    <%= f.text_field :title %>
+  </div>
+  <div class="field">
+    <%= f.label :complete %>
+    <%= f.check_box :complete %>
+  </div>
+  <div class="field">
+    <%= f.label :subject_id %>
+    <%= f.collection_select :subject_id, Subject.order(:title), :id, :title, include_blank: true %>
+  </div>
+  <div class="field">
+    <%= f.label :priority %>
+    <%= f.text_field :priority %>
+  </div>
+  <div class="field">
+    <%= f.label :body %>
+    <%= f.text_area :body, rows: 10, cols: 75 %>
+  </div>
+  <div class="field">
+    <%= f.label :deadline %>
+    <%= f.text_field :deadline, value: @section.deadline.to_s(:deadline_format) %>
+  </div>
+  <div class="actions">
+    <%= f.submit class: "button" %>
+  </div>
+<% end %>

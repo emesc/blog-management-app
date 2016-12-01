@@ -2,6 +2,8 @@ class Section < ApplicationRecord
   belongs_to :subject, counter_cache: true
   has_many :comments
 
+  validates_with DatetimeValidator
+
   # define scopes for incomplete and sorted sections (default order is from latest)
   # default_scope      -> { order(id: :desc) }
   default_scope      -> { order(deadline: :asc).order(priority: :asc) }

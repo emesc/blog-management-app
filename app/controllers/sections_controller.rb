@@ -1,5 +1,7 @@
 class SectionsController < ApplicationController
 
+  before_action :find_section, only: [:edit, :update, :show]
+
   # def incomplete
   #   # for retrieving a single recent record
   #   # @section = Section.find_by(complete: false)
@@ -63,4 +65,41 @@ class SectionsController < ApplicationController
     @section = Section.find(params[:id])
     @comments = @section.comments
   end
+
+  def new
+    @section = Section.new
+  end
+
+  def create
+    @section = Section.new(section_params)
+    if @section.save
+      flash[:notice] = "Section created successfully."
+      redirect_to sections_path
+    else
+      render 'new'
+    end
+  end
+
+  def edit
+
+  end
+
+  def update
+    if @section.update_attributes(section_params)
+      flash[:notice] = "Section updated successfully."
+      redirect_to section_path(@section)
+    else
+      render 'edit'
+    end
+  end
+
+  private
+
+    def section_params
+      params.require(:section).permit(:title, :complete, :subject_id, :priority, :body, :deadline)
+    end
+
+    def find_section
+      @section = Section.find(params[:id])
+    end
 end

@@ -1,7 +1,13 @@
 <h2 align="center"><%= @section.title %></h2>
 <p><strong>Complete?</strong> <%= @section.complete %></p>
+<% if !@section.complete %>
+  <p><strong>Deadline:</strong> <%= @section.deadline.to_s(:deadline_format) %></p>
+<% end %>
 <p><strong>Content:</strong> </p>
 <p><%= @section.body %></p>
+<p><%= link_to "Edit", edit_section_path(@section) %></p>
+<p><%= link_to "Subjects list", subjects_path %></p>
+<p><%= link_to "Sections list", sections_path %></p>
 <br>
 <h2>Comments</h2>
 <div class="comments-section">
@@ -15,6 +21,3 @@
   <p><%= f.text_area :content, size: "50x5" %></p>
   <p><%= submit_tag "Add Comment", class: "button" %></p>
 <% end %>
-<br>
-<p><%= link_to "Subjects list", subjects_path %></p>
-<p><%= link_to "Sections list", sections_path %></p>

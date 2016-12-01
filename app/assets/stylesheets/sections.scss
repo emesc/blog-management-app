@@ -22,3 +22,9 @@ tbody tr:nth-child(odd) {
 td {
   padding: 3px 5px 3px 5px;
 }
+
+.error_messages {
+  li {
+    padding-top: 10px;
+  }
+}

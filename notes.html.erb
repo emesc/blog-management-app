@@ -222,7 +222,7 @@ section.deadline.strftime("due on %B %d at %I:%M %p")
 # could create a helper method or add it to the Section model
 # or add a new format to the to_s method (instead of :short, :long or :db)
 section.deadline.to_s(:deadline_format)
-# add the new date format to environment.rb since it needs to be loaded before the rest of the app
+# add the new date format to config/initializers since it needs to be loaded before the rest of the app
 # the various date formats are stored in a hash in the Time class called DATE_FORMATS
 # the hash's keys being strings representing the format
 # RESTART the app or it will use the default to_s method

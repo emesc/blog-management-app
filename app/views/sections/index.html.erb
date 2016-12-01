@@ -1,4 +1,5 @@
 <h2>Sections</h2>
+<p><%= link_to "Add new section", new_section_path %></p>
 <div id="section-lookup">
   <%= form_tag sections_path, method: :get, id: "section-lookup-form" do %>
     <%#= label_tag :search_param, "Search a section" %>
@@ -46,8 +47,8 @@
             <td><%= link_to section.title, section_path(section) %></td>
             <td><%= section.complete %></td>
             <td><%= section.priority %></td>
-            <td><%= section.deadline %></td>
-            <td><%= truncate(section.body, length: 80, separator: ' ') %></td>
+            <td><%= section.deadline.to_s(:deadline_format) %></td>
+            <td><%= truncate(section.body, length: 50, separator: ' ') %></td>
           </tr>
         <% end %>
       <% else %>
@@ -57,5 +58,4 @@
   </table>
 <% end %>
 <br>
-<%= link_to "All sections" %><br>
 <%= link_to "All subjects", subjects_path %>

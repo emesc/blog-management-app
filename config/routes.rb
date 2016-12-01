@@ -13,7 +13,7 @@ Rails.application.routes.draw do
   # get "subjects(/:id)", to: "subjects#show"
   # get "sections",       to: "sections#index"
   resources :subjects, only: [:index, :show]
-  resources :sections, only: [:index, :show] do
+  resources :sections, except: [:destroy] do
     resources :comments, only: [:create]
   end
   # resources :users,     only: [:index, :show, :new, :create, :update]
