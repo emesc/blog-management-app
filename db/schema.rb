@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161130061917) do
+ActiveRecord::Schema.define(version: 20161201002942) do
 
   create_table "categories", force: :cascade do |t|
     t.string   "name"
@@ -59,7 +59,7 @@ ActiveRecord::Schema.define(version: 20161130061917) do
     t.integer  "subject_id"
     t.integer  "priority"
     t.text     "body"
-    t.date     "deadline"
+    t.datetime "deadline"
   end
 
   create_table "subjects", force: :cascade do |t|

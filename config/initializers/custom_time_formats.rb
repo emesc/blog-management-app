@@ -1,0 +1,1 @@
+Time::DATE_FORMATS[:deadline_format] = "due on %B %d at %I:%M %p"

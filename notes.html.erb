@@ -176,3 +176,55 @@ $ rails g model comment content:text section:references
 ##############################
 # 1) section.rb
 # change default order to sort by deadline
+
+##############################
+# PRETTY PAGE TITLE 
+#
+# 
+##############################
+# 1) application.html.erb
+# below does not work
+# Base Title <%= yield(:title) || "Sub Title" %>
+# this one works; note content_for?
+<title>Co Corp Inc | <%= content_for?(:title) ? yield(:title) : "Kickstarter prism direct trade" %></title>
+# shift page headers to application layout
+# then use the title helper again in the body
+<h1><%= yield :title %></h1>
+# 2) application_helper.rb
+# use content_for again
+content_for(:title) { page_title }
+
+##############################
+# CUSTOMISING TIME FORMAT
+#
+# 
+##############################
+# try the following in rails c
+>> sec = Section.first
+>> sec.deadline.to_datetime
+>> sec.deadline.to_date
+>> sec.deadline.to_date.to_s
+>> sec.deadline.to_date.to_s(:short)
+>> sec.deadline.to_date.to_s(:long)
+>> sec.deadline.to_date.to_s(:db)
+>> Time.now.to_datetime.to_s(:db)
+>> Time.now.to_datetime.strftime("due on %B %d at %I:%M %p")
+# 1) sections/index.html.erb
+# below shows 27 Oct 00:30
+section.deadline.to_s(:short)
+# below shows November 11, 2016 00:30
+section.deadline.to_s(:long)
+# below shows db format 2016-11-11 00:30:29
+section.deadline.to_s(:db)
+# create your own format
+section.deadline.strftime("due on %B %d at %I:%M %p")
+# make it reusable by refactoring
+# could create a helper method or add it to the Section model
+# or add a new format to the to_s method (instead of :short, :long or :db)
+section.deadline.to_s(:deadline_format)
+# add the new date format to environment.rb since it needs to be loaded before the rest of the app
+# the various date formats are stored in a hash in the Time class called DATE_FORMATS
+# the hash's keys being strings representing the format
+# RESTART the app or it will use the default to_s method
+Time::DATE_FORMATS[:deadline_format] = "due on %B %d at %I:%M %p"
+

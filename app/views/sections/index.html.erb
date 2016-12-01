@@ -19,7 +19,7 @@
         <h3><%= month.strftime("%B %Y") %></h3>
         <tr>
           <% sections.each do |section| %>
-            <p><%= link_to section.title, section_path(section) %> due on <%= section.deadline.to_date.to_s(:long) %></p>
+            <p><%= link_to section.title, section_path(section) %> <%= section.deadline.to_s(:deadline_format) %></p>
           <% end %>
         </tr>
       <% end %>

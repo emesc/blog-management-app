@@ -34,7 +34,7 @@ books.sections.create(title: 'Ennui godard ', complete: true, priority: 11, body
 
 films = Subject.create(title: 'Films')
 f = 13
-date1 = Date.today.to_time
+date1 = Time.now.to_time
 date2 = 4.months.from_now.to_time
 10.times do
   title = Faker::Company.catch_phrase
