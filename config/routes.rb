@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  get 'comments/create'
+  # map.resources :tasks, :collection => { :completed => :get }, :member => { :complete => :put }
 
   authenticated :user do
     # root "products#index", as: :authenticated_root
@@ -14,8 +14,13 @@ Rails.application.routes.draw do
   # get "subjects(/:id)", to: "subjects#show"
   # get "sections",       to: "sections#index"
   resources :subjects, except: [:new, :create]
+  # custom RESTful actions
+  get "/sections/completed", to: "sections#completed", as: :completed_sections
   resources :sections, except: [:destroy] do
     resources :comments, only: [:create]
+    # collection do
+      # match "/sections/completed", to: "sections#completed", as: :sections_completed, via: :get
+    # end
   end
   # resources :users,     only: [:index, :show, :new, :create, :update]
   resources :products

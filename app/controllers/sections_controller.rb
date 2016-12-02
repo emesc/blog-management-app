@@ -62,7 +62,6 @@ class SectionsController < ApplicationController
   end
   
   def show
-    @section = Section.find(params[:id])
     @comments = @section.comments
   end
 
@@ -91,6 +90,10 @@ class SectionsController < ApplicationController
     else
       render 'edit'
     end
+  end
+
+  def completed
+    @sections = Section.where(complete: true)
   end
 
   private

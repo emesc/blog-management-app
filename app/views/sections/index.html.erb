@@ -1,6 +1,7 @@
 <% title "All Sections" %>
 <%= link_to "Add new section", new_section_path %><br>
-<%= link_to "All subjects", subjects_path %>
+<%= link_to "All subjects", subjects_path %><br>
+<%= link_to "Completed Sections", completed_sections_path %>
 <div id="section-lookup">
   <%= form_tag sections_path, method: :get, id: "section-lookup-form" do %>
     <%#= label_tag :search_param, "Search a section" %>

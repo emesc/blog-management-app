@@ -1,0 +1,20 @@
+<% title "Completed Tasks" %>
+<%= link_to "All Subjects", subjects_path %><br>
+<%= link_to "All Sections", sections_path %><br>
+<br>
+<table>
+  <thead>
+    <tr>
+      <th>Title</th>
+      <th>Completed?</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @sections.each do |section| %>
+    <tr>
+        <td><%= section.title %></td>
+        <td><%= section.complete %></td>
+      <% end %>
+    </tr>
+  </tbody>
+</table>
