@@ -228,3 +228,28 @@ section.deadline.to_s(:deadline_format)
 # RESTART the app or it will use the default to_s method
 Time::DATE_FORMATS[:deadline_format] = "due on %B %d at %I:%M %p"
 
+##############################
+# CREATING PLUGINS
+# 
+# skipped
+##############################
+
+##############################
+# NAMED ROUTES
+# 
+# 1) sections/index.html
+# 2) routes.rb
+##############################
+# url vs path
+# 1)
+# below outputs absolute path (http://localhost:3000/sections)
+sections_url
+# below outputs relative path (/sections)
+sections_path
+# 2)
+# below is same as get "sections/:year/:month" => "sections#archive", as: :section_archive
+get "/sections/:year/:month", to: "sections#archive", as: :section_archive
+# 1)
+# both gives /sections/2016/11
+section_archive_path(2016, 11)
+section_archive_path(year: 2016, month: 11)

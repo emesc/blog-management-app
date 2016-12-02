@@ -8,7 +8,8 @@
   <thead>
     <tr>
       <th>Title</th>
-      <th colspan="1"></th>
+      <th>Contains</th>
+      <th></th>
     </tr>
   </thead>
   <tbody>
@@ -16,14 +17,17 @@
       <tr>
         <td><%= link_to subject.title, subject_path(subject) %></td>
         <td>(<%= pluralize(subject.sections.size, 'section') %>)</td>
+        <td><%= link_to "Edit", edit_subject_path(subject) %> | <%= link_to "Delete", subject_path(subject), method: :delete, data: { confirm: "Are you sure?" } %></td>
       </tr>
     <% end %>
   </tbody>
 </table>
-
 <br>
-<p><%= link_to "All sections", sections_path %></p>
-
+<%#= section_archive_path(2016, 11) %><br>
+<%#= section_archive_path(year: 2016, month: 11) %>
+<br>
+<%= link_to "All sections", sections_path %>
+<br>
 <% content_for :footer do %>
   <br>
   Content for footer

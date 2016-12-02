@@ -1,7 +1,7 @@
-<h1><%= @subject.title %></h1>
+<% title @subject.title %>
 <% @sections.each do |section| %>
   <p><%= link_to section.title, section_path(section) %></p>
 <% end %>
 <br>
-<p><%= link_to "Subjects list", subjects_path %></p>
-<p><%= link_to "Sections list", sections_path %></p>
+<p><%= link_to "All subjects", subjects_path %></p>
+<p><%= link_to "All sections", sections_path %></p>
