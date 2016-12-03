@@ -1,6 +1,6 @@
 class SectionsController < ApplicationController
 
-  before_action :find_section, only: [:edit, :update, :show]
+  before_action :find_section, only: [:edit, :update, :show, :destroy, :complete]
 
   # def incomplete
   #   # for retrieving a single recent record
@@ -54,7 +54,7 @@ class SectionsController < ApplicationController
     # for search box in sections
     # look at the generated sql query vs without joins-select
     # specified which title the query belongs to
-    @sections = Section.joins(:subject).select("sections.*, subjects.title as subject_title").where("sections.title LIKE ? OR sections.body LIKE ?", "%#{params[:search_param]}%", "%#{params[:search_param]}%")
+    @sections = Section.joins(:subject).select("sections.*, subjects.title as subject_title").important.where("sections.title LIKE ? OR sections.body LIKE ?", "%#{params[:search_param]}%", "%#{params[:search_param]}%")
     # detailed or list view
     @detailed = false
     # below will generate a hash which keys are a date representing the first day of a month and which values are an array of all the sections whose due date falls within that month
@@ -93,7 +93,40 @@ class SectionsController < ApplicationController
   end
 
   def completed
-    @sections = Section.where(complete: true)
+    @sections = Section.complete.alphabetical
+  end
+
+  # individual routes for marking as complete or not
+  # # mark sections as complete
+  # def complete
+  #   @section.update_attribute(:complete, true)
+  #   flash[:notice] = "#{@section.title} marked as completed."
+  #   redirect_to completed_sections_path
+  # end
+  # # undo marked as complete
+  # def incomplete
+  #   @section.update_attribute(:complete, false)
+  #   flash[:notice] = "#{@section.title} is not yet complete."
+  #   redirect_to sections_path
+  # end
+
+  # using patch in routes for marking as complete or not
+  # single route and action
+  def complete
+    if @section.complete
+      @section.update_attribute(:complete, false)
+      flash[:notice] = "#{@section.title} is not yet complete"
+    else
+      @section.update_attribute(:complete, true)
+      flash[:notice] = "#{@section.title} marked as completed"
+    end
+    redirect_to completed_sections_path
+  end
+
+  def destroy
+    @section.destroy
+    flash[:notice] = "Section deleted successfully"
+    redirect_to sections_path
   end
 
   private

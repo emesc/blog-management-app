@@ -1,0 +1,21 @@
+<% title "Incomplete Sections" %>
+<%= link_to "All Sections", sections_path %> | 
+<%= link_to "All Subjects", subjects_path %><br>
+<br>
+<table>
+  <thead>
+    <tr>
+      <th>Title</th>
+      <th>Action</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @sections.each do |section| %>
+      <tr>
+        <td><%= section.title %></td>
+        <td><%= link_to "Edit", edit_section_path(section) %></td>
+        <td><%#= link_to "Mark as complete", complete_section_path(section), method: :put %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

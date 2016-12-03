@@ -1,5 +1,5 @@
 <% title "Completed Tasks" %>
-<%= link_to "All Subjects", subjects_path %><br>
+<%= link_to "All Subjects", subjects_path %> | 
 <%= link_to "All Sections", sections_path %><br>
 <br>
 <table>
@@ -12,7 +12,7 @@
   <tbody>
     <% @sections.each do |section| %>
     <tr>
-        <td><%= section.title %></td>
+        <td><%= link_to section.title, section_path(section) %></td>
         <td><%= section.complete %></td>
       <% end %>
     </tr>

@@ -253,3 +253,51 @@ get "/sections/:year/:month", to: "sections#archive", as: :section_archive
 # both gives /sections/2016/11
 section_archive_path(2016, 11)
 section_archive_path(year: 2016, month: 11)
+
+##############################
+# CUSTOM RESTful ROUTES
+# 
+# 1) sections_controller.rb
+# 2) routes.rb
+# 3) section.rb
+# 4) sections/index
+##############################
+# 1)
+# create custom action in sections controller
+# sample is for completed sections
+@sections = Section.where(complete: true)
+
+# 2)
+# routes specs execute from top to bottom
+# must place below line before resources :sections so that it's the first matching route
+# otherwise, it's the show method that's being called and throws RecordNotFound error
+# specify a get request
+# as: changes path name to completed_sections_path, else it's sections_completed_path
+get "/sections/completed", to: "sections#completed", as: :completed_sections_path
+# instead of above, used collection routes inside resource :sections
+collection do
+  get "completed", to: :completed
+end
+.
+.
+.
+
+
+# 1)
+# if there's a completed_at column in sections table
+# you can update it this way
+def complete
+  @section = Section.find(params[:id])
+  @section.update_attribute(:completed_at, Time.now)
+  flash[:notice] = "#{@section.title} marked as completed."
+  redirect_to completed_sections_path  
+end
+
+# 3)
+# set order by importance as normal scope so that different scopes can be used
+scope :important,  -> { order(deadline: :asc).order(priority: :asc) }
+
+# 4)
+# changed layout from p's to table for each month
+# used zebra striping and fixed table layout in sections.scss
+

@@ -5,9 +5,8 @@
 <% end %>
 <p><strong>Content:</strong> </p>
 <p><%= @section.body %></p>
-<p><%= link_to "Edit", edit_section_path(@section) %></p>
-<p><%= link_to "Subjects list", subjects_path %></p>
-<p><%= link_to "Sections list", sections_path %></p>
+<p><%= link_to "Edit", edit_section_path(@section) %> | <%= link_to "Delete", section_path(@section), method: :delete, data: { confirm: "Are you sure?" } %></p>
+<p><%= link_to "Subjects list", subjects_path %> | <%= link_to "Sections list", sections_path %></p>
 <br>
 <h2>Comments</h2>
 <div class="comments-section">

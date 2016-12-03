@@ -14,13 +14,22 @@ Rails.application.routes.draw do
   # get "subjects(/:id)", to: "subjects#show"
   # get "sections",       to: "sections#index"
   resources :subjects, except: [:new, :create]
-  # custom RESTful actions
-  get "/sections/completed", to: "sections#completed", as: :completed_sections
-  resources :sections, except: [:destroy] do
-    resources :comments, only: [:create]
-    # collection do
-      # match "/sections/completed", to: "sections#completed", as: :sections_completed, via: :get
+  resources :sections do
+    # custom RESTful actions using collection and member blocks
+    collection do
+      get "completed",   to: :completed#, as: :completed_sections
+    end
+    # member do
+    #   # separate routes for updating complete marks
+    #   # put "complete",    to: :complete, as: :complete
+    #   # delete "complete", to: "sections#incomplete", as: :incomplete
+    #   # single route and action for updating complete marks
+    #   # patch :complete
     # end
+    # eliminate above blocks since i dont have multiple member & collection routes
+    patch :complete, on: :member
+    # nest comments resource
+    resources :comments, only: [:create]
   end
   # resources :users,     only: [:index, :show, :new, :create, :update]
   resources :products

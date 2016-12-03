@@ -6,10 +6,11 @@ class Section < ApplicationRecord
 
   # define scopes for incomplete and sorted sections (default order is from latest)
   # default_scope      -> { order(id: :desc) }
-  default_scope      -> { order(deadline: :asc).order(priority: :asc) }
-  # scope :importance, -> { order(deadline: :asc).order(priority: :asc) }
+  # default_scope      -> { order(deadline: :asc).order(priority: :asc) }
+  scope :important,  -> { order(deadline: :asc).order(priority: :asc) }
   scope :incomplete, -> { where(complete: false) }
-  scope :complete,   -> { where(complete: true) }
+  scope :complete,   -> { where(complete: true) }#.order(title: :asc) }
+  scope :alphabetical, -> { order(title: :asc) }
 
   # long version of scope :incomplete, with limit (first n)
   # def self.find_incomplete(limit)

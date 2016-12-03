@@ -28,3 +28,23 @@ td {
     padding-top: 10px;
   }
 }
+
+/* zebra striping for table rows */
+/*.odd { background-color: #efefef; }
+.even { background-color: none; }*/
+
+/* fixed table layout sections by listing (not detailed) */
+.sections-listing .sections-by-list {
+  table-layout: fixed;
+  width: 70%;
+  /*white-space: nowrap;*/
+  .row-title {
+    width: 40%;
+  }
+  .row-deadline {
+    width: 30%;
+  }
+  .row-mark {
+    width: 30%;
+  }
+}
