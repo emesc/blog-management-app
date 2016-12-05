@@ -275,12 +275,18 @@ section_archive_path(year: 2016, month: 11)
 # as: changes path name to completed_sections_path, else it's sections_completed_path
 get "/sections/completed", to: "sections#completed", as: :completed_sections_path
 # instead of above, used collection routes inside resource :sections
+# can add optional as: for named routes; eg, as: :finished gives finished_sections_path
 collection do
+  # get "completed", to: :completed, as: :finished
   get "completed", to: :completed
 end
-.
-.
-.
+member do
+  patch :complete
+end
+# eliminate the collections and member blocks by passing :on to a route since i dont have multiple member routes
+get :completed, on: :collection
+patch :complete, on: :member
+
 
 
 # 1)
@@ -301,3 +307,59 @@ scope :important,  -> { order(deadline: :asc).order(priority: :asc) }
 # changed layout from p's to table for each month
 # used zebra striping and fixed table layout in sections.scss
 
+##############################
+# SIMPLE SEARCH FORM
+# 
+# https://railsforum.com/topic/936-difference-between-text-field-tag-and-text-field/
+# 1) products/index
+# 2) products_controller.rb
+# 3) product.rb
+##############################
+# update seed file
+# 1)
+# form_tag simply creates a generic form, can be used with text_field_tag, no need to involve the model or db
+# eg, when writing a form for password reset; user has to key in his email for the app to send notification to; no db involved
+<%= form_tag password_reset_path do %>
+  <%= text_field_tag :email %>
+  <%= submit_tag %>
+<% end %>
+# form_for is a model backed form; it creates a form for a model object, it figures out what url and http method to use depending on whether the object is a new record or a saved record
+# can be used with text_field (must be used w form_for) which requires an existing column in the db
+<%= form_for @user do |f| %>
+  <%= f.text_field :name %>
+  <%= f.submit %>
+<% end %>
+# same pattern for these tags: 
+  # file_field_tag / file_field
+  # email_field_tag / email_field
+  # text_area_tag / text_area
+# by default, it'll submit a POST request (can check terminal when you render index, even without searching)
+# the way RESTful routes work is that if you submit a post request to products_path, it thinks you're trying to create a project
+# since we're just searching in projects index, use method: :get in the form_tag
+# using the default post request will result in error: ActionController::ParameterMissing in ProductsController#create
+<%= form_tag products_path, method: :get do %>
+.
+.
+<% end %>
+# make the form show the searched term(s) after searching
+<%= form_tag products_path, method: :get do %>
+  <%= text_field_tag :search, params[:search] %>
+# commit param is included in the url because it's the name of the search button, see the page source
+# remove by adding nil to name
+  <%= submit_tag "Search", name: nil %>
+<% end %>
+# @products.count for showing the total no of products found
+# @products.size for showing the no of products per page
+# 2)
+def index
+  @products = Product.paginate(page: params[:page], per_page: 40).includes(:user, :categories).where("name LIKE ?", "%#{params[:search]}%")
+end
+# refactor the products controller by moving the db query to the model
+@products = Product.paginate(page: params[:page], per_page: 40).includes(:user, :categories).search_for(params[:search])
+# 3)
+# use self or it throws NoMethodError in ProductsController#index
+def self.search_for(keyword)
+  where("name LIKE ?", "%#{keyword}%")
+end
+# default scope is alphabetical name
+# if you prefer chronologically, may use order(id: :desc) to improve performace; search is faster since primary key is indexed

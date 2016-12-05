@@ -1,58 +1,59 @@
 <% title "All Sections" %>
 <%= link_to "Add new section", new_section_path %> | 
 <%= link_to "All subjects", subjects_path %> | 
+<%= link_to "All sections", sections_path %> | 
 <%= link_to "Completed Sections", completed_sections_path %><br>
 <br>
 <div id="section-lookup">
   <%= form_tag sections_path, method: :get, id: "section-lookup-form" do %>
     <%#= label_tag :search_param, "Search a section" %>
-    <%= text_field_tag :search_param, nil, autofocus: true, placeholder: "Search in sections" %>
-    <%= submit_tag 'Search', class: "button" %>
+    <%= text_field_tag :search_param, params[:search_param], autofocus: true, placeholder: "Search in sections" %>
+    <%= submit_tag 'Search', name: nil, class: "button" %>
   <% end %>
 </div>
 
-<% if !@detailed %>
-  <div class="sections-listing">
-  <% @sections_by_month.each do |month, sections| %>
-    <h3><%= month.strftime("%B %Y") %></h3>
-    <table class="sections-by-list">
+<% if @sections.present? %>
+  <% if !@detailed %>
+    <div class="sections-listing">
+    <% @sections_by_month.each do |month, sections| %>
+      <h3><%= month.strftime("%B %Y") %></h3>
+      <table class="sections-by-list">
+        <thead>
+          <tr>
+            <th class="row-title"></th>
+            <th class="row-deadline"></th>
+            <th class="row-mark"></th>
+          </tr>
+        </thead>
+        <tbody>
+          <% sections.each do |section| %>
+          <tr>
+            <td><%= link_to section.title, section_path(section) %></td>
+            <td><%= section.deadline.to_s(:deadline_format) %></td>
+            <% if !section.complete %>
+            <td><%= link_to "Mark as complete", complete_section_path(section), method: :patch %></td>
+            <% else %>
+            <td>&#10004; <%= link_to "Undo mark", complete_section_path(section), method: :patch %></td>
+            <% end %>
+          </tr>
+          <% end %>
+        </tbody>
+      </table>       
+    <% end %>
+    </div>
+  <% else %>
+    <table>
       <thead>
         <tr>
-          <th class="row-title"></th>
-          <th class="row-deadline"></th>
-          <th class="row-mark"></th>
+          <th>Subject</th>
+          <th>Title</th>
+          <th>Done</th>
+          <th>Priority</th>
+          <th>Deadline</th>
+          <th>Body</th>
         </tr>
       </thead>
       <tbody>
-        <% sections.each do |section| %>
-        <tr>
-          <td><%= link_to section.title, section_path(section) %></td>
-          <td><%= section.deadline.to_s(:deadline_format) %></td>
-          <% if !section.complete %>
-          <td><%= link_to "Mark as complete", complete_section_path(section), method: :patch %></td>
-          <% else %>
-          <td>&#10004; <%= link_to "Undo mark", complete_section_path(section), method: :patch %></td>
-          <% end %>
-        </tr>
-        <% end %>
-      </tbody>
-    </table>       
-  <% end %>
-  </div>
-<% else %>
-  <table>
-    <thead>
-      <tr>
-        <th>Subject</th>
-        <th>Title</th>
-        <th>Done</th>
-        <th>Priority</th>
-        <th>Deadline</th>
-        <th>Body</th>
-      </tr>
-    </thead>
-    <tbody>
-      <% if @sections.present? %>
         <% @sections.each do |section| %>
           <tr>
             <%# subject_title only for joins-select(-where); otherwise, subject.title %>
@@ -64,9 +65,9 @@
             <td><%= truncate(section.body, length: 50, separator: ' ') %></td>
           </tr>
         <% end %>
-      <% else %>
-        <p>There are no sections containing <em><%= params[:search_param] %></em>.</p>
-      <% end %>
-    </tbody>
-  </table>
+      </tbody>
+    </table>
+  <% end %>
+<% else %>
+  <p>There are no sections containing <em><%= params[:search_param] %></em>.</p>
 <% end %>

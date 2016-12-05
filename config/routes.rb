@@ -4,8 +4,8 @@ Rails.application.routes.draw do
   authenticated :user do
     # root "products#index", as: :authenticated_root
   end
-  # root "welcome#index"
-  root "subjects#index"
+  root "welcome#index"
+  # root "subjects#index"
   devise_for :users
   scope "/admin" do
     resources :users
@@ -15,10 +15,10 @@ Rails.application.routes.draw do
   # get "sections",       to: "sections#index"
   resources :subjects, except: [:new, :create]
   resources :sections do
-    # custom RESTful actions using collection and member blocks
-    collection do
-      get "completed",   to: :completed#, as: :completed_sections
-    end
+    # # custom RESTful actions using collection and member blocks
+    # collection do
+    #   get "completed",   to: :completed#, as: :completed_sections
+    # end
     # member do
     #   # separate routes for updating complete marks
     #   # put "complete",    to: :complete, as: :complete
@@ -26,12 +26,12 @@ Rails.application.routes.draw do
     #   # single route and action for updating complete marks
     #   # patch :complete
     # end
-    # eliminate above blocks since i dont have multiple member & collection routes
-    patch :complete, on: :member
+    # eliminate above 2 blocks since i dont have multiple member & collection routes
+    get   :completed, on: :collection
+    patch :complete,  on: :member
     # nest comments resource
     resources :comments, only: [:create]
   end
-  # resources :users,     only: [:index, :show, :new, :create, :update]
   resources :products
   resources :roles
   # page not found

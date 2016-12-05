@@ -54,7 +54,7 @@ class SectionsController < ApplicationController
     # for search box in sections
     # look at the generated sql query vs without joins-select
     # specified which title the query belongs to
-    @sections = Section.joins(:subject).select("sections.*, subjects.title as subject_title").important.where("sections.title LIKE ? OR sections.body LIKE ?", "%#{params[:search_param]}%", "%#{params[:search_param]}%")
+    @sections = Section.joins(:subject).select("sections.*, subjects.title as subject_title").important.search_for(params[:search_param])
     # detailed or list view
     @detailed = false
     # below will generate a hash which keys are a date representing the first day of a month and which values are an array of all the sections whose due date falls within that month
@@ -115,10 +115,10 @@ class SectionsController < ApplicationController
   def complete
     if @section.complete
       @section.update_attribute(:complete, false)
-      flash[:notice] = "#{@section.title} is not yet complete"
+      flash[:notice] = "'#{@section.title}' is not yet complete"
     else
       @section.update_attribute(:complete, true)
-      flash[:notice] = "#{@section.title} marked as completed"
+      flash[:notice] = "'#{@section.title}' marked as completed"
     end
     redirect_to completed_sections_path
   end

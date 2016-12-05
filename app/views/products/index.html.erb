@@ -1,9 +1,25 @@
 <% title "All Products" %>
 <p><%= link_to "Add product", new_product_path if can? :create, Product %></p>
+<p><%= link_to "All products", products_path %></p>
+
+<div id="section-lookup">
+  <%= form_tag products_path, method: :get, id: "section-lookup-form" do %>
+      <%= text_field_tag :search, params[:search], autofocus: true, placeholder: "Search for a product" %>
+      <%= submit_tag "Search", name: nil, class: "button" %>
+  <% end %>
+  <p>
+    <% if @products.present? %>
+      <%= pluralize(@products.count, 'product') %> found
+    <% else %>
+      <p>There are no products containing <em><%= params[:search] %></em>.</p>
+    <% end %>
+  </p>
+</div>
 
 <div align="center">
   <%= will_paginate %>
 </div>
+<br>
 
 <table>
   <thead>
@@ -12,7 +28,7 @@
       <th>Name</th>
       <th>Price</th>
       <th>Seller</th>
-      <th colspan="3"></th>
+      <th></th>
     </tr>
   </thead>
   <tbody>

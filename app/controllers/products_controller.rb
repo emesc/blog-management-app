@@ -5,7 +5,7 @@ class ProductsController < ApplicationController
   # before_action :find_product, only: [:edit, :update, :destroy, :show]
 
   def index
-    @products = Product.paginate(page: params[:page], per_page: 10).includes(:user, :categories)
+    @products = Product.paginate(page: params[:page], per_page: 40).includes(:user, :categories).search_for(params[:search])
   end
 
   def new

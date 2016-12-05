@@ -77,13 +77,14 @@ u3 = User.create(first_name: "Franklin", middle_initial: "D", last_name: "Roosev
 u4 = User.create(first_name: "Woodrow", last_name: "Wilson", email: "woodrow@example.com", password: "foobar", password_confirmation: "foobar", role_id: r1.id)
 u5 = User.create(first_name: "John", middle_initial: "F", last_name: "Kennedy", email: "john@example.com", password: "foobar", password_confirmation: "foobar", role_id: r1.id)
 
-
-p1 = Product.create(name: "Wise Man's Fear", price: 8.99, user_id: u3.id)
-p2 = Product.create(name: 'Ukelele Starter Kit', price: 59.99, user_id: u2.id)
-p3 = Product.create(name: 'KNEX K-Force', price: 16.00, user_id: u3.id)
-p4 = Product.create(name: 'Palm Sander', price: 15.59, user_id: u2.id)
-p5 = Product.create(name: 'Bed Sheet', price: 39.98, user_id: u3.id)
-p6 = Product.create(name: 'Security Camera', price: 119.00, user_id: u2.id)
+100.times do
+  first_name = Faker::Name.first_name
+  last_name = Faker::Name.last_name
+  email = Faker::Internet.email
+  password = "foobar"
+  password_confirmation = "foobar"
+  User.create(first_name: first_name, last_name: last_name, email: email, password: password, password_confirmation: password_confirmation, role_id: r2.id)
+end
 
 c1 = Category.create(name: 'Books')
 c2 = Category.create(name: 'Electronics')
@@ -91,3 +92,32 @@ c3 = Category.create(name: 'Music')
 c4 = Category.create(name: 'Gifts')
 c5 = Category.create(name: 'Tools')
 c6 = Category.create(name: 'Home')
+# can use Faker::Commerce.department(max, false(for fixed_amount)) but let's individually create this time
+c7 = Category.create(name: 'Computers')
+c8 = Category.create(name: 'Health')
+c9 = Category.create(name: 'Automotive')
+c10 = Category.create(name: 'Sports')
+c11 = Category.create(name: 'Clothing')
+c12 = Category.create(name: 'Shoes')
+c13 = Category.create(name: 'Beauty')
+c14 = Category.create(name: 'Movies')
+c15 = Category.create(name: 'Kids')
+
+p1 = Product.create(name: "Wise Man's Fear", price: 8.99, user_id: u3.id, category_ids: [1, 4])
+p2 = Product.create(name: 'Ukelele Starter Kit', price: 59.99, user_id: u2.id, category_ids: [3, 4])
+p3 = Product.create(name: 'KNEX K-Force', price: 16.00, user_id: u3.id, category_ids: [4])
+p4 = Product.create(name: 'Palm Sander', price: 15.59, user_id: u2.id, category_ids: [5, 6])
+p5 = Product.create(name: 'Bed Sheet', price: 39.98, user_id: u3.id, category_ids: [4, 6])
+p6 = Product.create(name: 'Security Camera', price: 119.00, user_id: u2.id, category_ids: [5, 6])
+
+1000.times do
+  name = Faker::Commerce.product_name
+  price = (rand(0..100.0) * 100).floor / 100.0
+  user = ((1..105).to_a).sample
+  p = Product.create(name: name, price: price, user_id: user)
+  cat = ((1..15).to_a)
+  n = (1..3).to_a.sample
+  p.category_ids = cat.sample(n)
+end
+
+
