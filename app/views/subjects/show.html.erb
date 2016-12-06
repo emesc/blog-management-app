@@ -1,4 +1,5 @@
 <% title @subject.title %>
+<p align="center"><%= @subject.description %></p>
 <% @sections.each do |section| %>
   <p><%= link_to section.title, section_path(section) %></p>
 <% end %>

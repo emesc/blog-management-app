@@ -21,12 +21,17 @@ p {
   margin-left: 20px;
 }
 
-form {
+form, #preview {
   max-width: 480px;
   margin: 10px auto;
   padding: 10px 20px;
   background: #f4f7f8;
   border-radius: 8px;
+}
+
+#preview {;
+  background: #e4ecee;
+  border: 1px solid #c5d5da;
 }
 
 .field {
@@ -83,6 +88,11 @@ select {
   margin-bottom: 10px;
 }
 
+.button-med {
+  width: 30%;
+  display: inline;
+}
+
 label {
   display: inline;
   margin-bottom: 10px;
@@ -106,4 +116,11 @@ li {
 
 input placeholder {
   color: #000;
+}
+
+/* errors */
+.field_with_errors {
+  input, textarea {
+    border: 1px dotted #ff6600;
+  }
 }

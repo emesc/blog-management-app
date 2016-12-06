@@ -1,11 +1,3 @@
 <% title "Edit Subject" %>
 
-<%= form_for(@subject) do |f| %>
-  <div class="field">
-    <%= f.label :title %>
-    <%= f.text_field :title %>
-  </div>
-  <div class="actions">
-    <%= f.submit class: "button" %>
-  </div>
-<% end %>
+<%= render 'form' %>

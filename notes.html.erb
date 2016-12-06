@@ -20,7 +20,7 @@ subject.sections.maximum(:priority)
 subject.sections.where(complete: false).minimum(:priority)
 
 ##############################
-# Find conditions
+# FIND CONDITIONS
 # https://stackoverflow.com/questions/21435768/rails-console-find-users-by-array-of-ids
 # http://guides.rubyonrails.org/active_record_querying.html#array-conditions
 # sample queries
@@ -43,7 +43,7 @@ subject.sections.where(complete: false).where(priority: [3, 9])
 subject.sections.where({complete: false, priority: 1..10})
 
 ##############################
-# Eager loading for better performance
+# EAGER LOADING FOR BETTER PERFORMANCE
 # 
 # 
 # sample queries
@@ -62,7 +62,7 @@ def index
 end
 
 ##############################
-# Has many through checkboxes
+# HAS MANY THROUGH CHECKBOXES
 # 
 # 1) products/_form.html.erb
 # 2) products_controller.rb
@@ -79,7 +79,7 @@ check_box_tag "product[category_ids][]", category.id, @product.categories.includ
 permit(..., category_ids: [])
 
 ##############################
-# looping through flash
+# LOOPING THROUGH FLASH
 # http://apidock.com/rails/ActionView/Helpers/TagHelper/content_tag
 # application.html.erb
 # git commit -m 'Updated flash message in the layout.'
@@ -92,7 +92,7 @@ flash.each do |key, msg|
   content_tag :div, msg, id: key
 
 ##############################
-# counter cache column
+# COUNTER CACHE COLUMN
 # 1) subjects/index.html.erb
 # size vs length vs count
 # http://work.stevegrossi.com/2015/04/25/how-to-count-with-activerecord/
@@ -363,3 +363,90 @@ def self.search_for(keyword)
 end
 # default scope is alphabetical name
 # if you prefer chronologically, may use order(id: :desc) to improve performace; search is faster since primary key is indexed
+
+##############################
+# MULTIBUTTON FORM
+# 
+# 1) subjects form partial
+# 2) subjects_controller.rb
+##############################
+# 1)
+# after rendering the form, the name of the button is submitted as one of the parameters (check terminal)
+# by default it is "commit" => "..."
+# you can change this in the form_for helper
+<%= f.submit "Create", name: "create_button" %>..<% end %>
+# re-render form, check the terminal, it now says Parameters: { ..., "create_button" = "Create", ...}
+# add a button for previewing current inputs
+<%= f.submit "Create", name: "create_button" %>
+<%= f.submit "Preview", name: "preview_button" %>
+# update subjects_controller.rb
+# render new action whether preview button is clicked or save failed
+def create
+  @subject = Subject.new(subject_params)
+  if params[:preview_button] || !@subject.save
+    render 'new'
+  else
+    flash..
+    redirect_to..
+  end
+end
+# render edit action whether preview button is clicked or update failed
+# fetch the current field inputs
+def update
+  # for preview button to work in edit mode, otherwise, preview renders and form switches to what was previously saved
+  @subject.attributes = subject_params
+  if params[:preview_button] || !@subject.update_attributes(subject_params)
+    render 'edit'
+  else
+    flash..
+    redirect_to..
+  end
+end
+# change button name accdg to current action (new or edit)
+<%= f.submit @subject.new_record? ? "Create" : "Update", name: "create_button" %>..<% end %>
+# error_messages partial can be shared among resources
+# <% if object.errors.any? %>
+# make sure to pass the object when the form is rendered
+<%= render 'shared/form', object: @subject %>..<% end %>
+# or
+<%= form_for @subject do |f| %>
+  <%= render 'shared/form', object: f.object %>
+# 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

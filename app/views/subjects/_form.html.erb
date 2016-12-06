@@ -1,0 +1,22 @@
+<% if params[:preview_button] %>
+  <div id="preview">
+    <h2><%= @subject.title %></h2>
+    <p><%= @subject.description %></p>
+  </div>
+<% end %>
+<%= form_for @subject do |f| %>
+  <%= render 'shared/error_messages', object: f.object %>
+  <div class="field">
+    <%= f.label :title %>
+    <%= f.text_field :title, autofocus: true %>
+  </div>
+  <div class="field">
+    <%= f.label :description %>
+    <%= f.text_area :description, rows: 5 %>
+  </div>
+  <div class="actions">
+    <%= f.submit @subject.new_record? ? "Create" : "Update", name: "create_button", class: "button button-med" %>
+    <%= f.submit "Preview", name: "preview_button", class: "button button-med" %>
+  </div>
+<% end %>
+<p><%= link_to "Back to subjects", subjects_path %></p>

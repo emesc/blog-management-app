@@ -1,7 +1,7 @@
 class SubjectsController < ApplicationController
 
   layout :user_layout
-  before_action :find_subject, except: [:index]
+  before_action :find_subject, only: [:show, :edit, :update, :destroy]
 
   def index
     # to check if all subjects are valid
@@ -22,16 +22,32 @@ class SubjectsController < ApplicationController
     # render layout: false
   end
 
+  def new
+    @subject = Subject.new
+  end
+
+  def create
+    @subject = Subject.new(subject_params)
+    if params[:preview_button] || !@subject.save
+      render 'new'
+    else
+      flash[:notice] = "Subject created successfully"
+      redirect_to subject_path(@subject)
+    end
+  end
+
   def edit
     
   end
 
   def update
-    if @subject.update_attributes(subject_params)
+    # for preview button to work in edit mode, otherwise, preview renders and form switches to what was previously saved
+    @subject.attributes = subject_params
+    if params[:preview_button] || !@subject.update_attributes(subject_params)
+      render 'edit'
+    else
       flash[:notice] = "Subject successfully updated."
       redirect_to subjects_path
-    else
-      render 'edit'
     end
   end
 
@@ -62,7 +78,7 @@ class SubjectsController < ApplicationController
     end
 
     def subject_params
-      params.require(:subject).permit(:title)
+      params.require(:subject).permit(:title, :description)
     end
 
     # control layouts based on user

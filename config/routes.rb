@@ -13,7 +13,7 @@ Rails.application.routes.draw do
   # get "subjects",       to: "subjects#index"
   # get "subjects(/:id)", to: "subjects#show"
   # get "sections",       to: "sections#index"
-  resources :subjects, except: [:new, :create]
+  resources :subjects
   resources :sections do
     # # custom RESTful actions using collection and member blocks
     # collection do

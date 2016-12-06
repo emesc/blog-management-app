@@ -3,7 +3,7 @@
   Content for head
 <% end %>
 
-<h3>Subjects</h3>
+<% title "Subjects" %>
 <table>
   <thead>
     <tr>
@@ -26,6 +26,7 @@
 <%#= section_archive_path(2016, 11) %><br>
 <%#= section_archive_path(year: 2016, month: 11) %>
 <br>
+<%= link_to "Add new subject", new_subject_path %><br>
 <%= link_to "All sections", sections_path %>
 <br>
 <% content_for :footer do %>
