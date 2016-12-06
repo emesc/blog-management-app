@@ -186,6 +186,7 @@ DEPENDENCIES
   jquery-rails
   listen (~> 3.0.5)
   minitest-reporters (~> 1.1, >= 1.1.12)
+  nokogiri (~> 1.6, >= 1.6.8.1)
   puma (~> 3.0)
   rails (~> 5.0.0, >= 5.0.0.1)
   sass-rails (~> 5.0)

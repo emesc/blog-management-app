@@ -29,6 +29,7 @@ gem 'jbuilder', '~> 2.5'
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
+gem 'nokogiri', '~> 1.6', '>= 1.6.8.1'
 gem 'will_paginate', '~> 3.1', '>= 3.1.5'
 gem 'devise', '~> 4.2'
 gem 'cancancan', '~> 1.15'

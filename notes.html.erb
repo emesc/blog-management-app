@@ -411,42 +411,11 @@ end
 # or
 <%= form_for @subject do |f| %>
   <%= render 'shared/form', object: f.object %>
+
+##############################
+# CUSTOM FIELD ERROR
 # 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+# https://stackoverflow.com/questions/13909393/overriding-actionviewbase-field-error-proc-in-rails 
+# 1) config/initializer/custom_field_error.rb
+##############################
+# use the SO helper with bootstrap, add nokogiri gem
