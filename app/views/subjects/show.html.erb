@@ -3,6 +3,12 @@
 <% @sections.each do |section| %>
   <p><%= link_to section.title, section_path(section) %></p>
 <% end %>
+
+<% admin_area do %>
+  <%= link_to "Edit", edit_subject_path(@subject) %> | 
+  <%= link_to "Delete", subject_path(@subject), method: :delete, data: { confirm: "Are you sure?" } %>
+<% end %>
+
 <br>
 <p><%= link_to "All subjects", subjects_path %></p>
 <p><%= link_to "All sections", sections_path %></p>

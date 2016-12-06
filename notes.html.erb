@@ -419,3 +419,34 @@ end
 # 1) config/initializer/custom_field_error.rb
 ##############################
 # use the SO helper with bootstrap, add nokogiri gem
+
+##############################
+# BLOCKS IN VIEW
+# 
+# http://api.rubyonrails.org/classes/ActionView/Helpers/TextHelper.html#method-i-concat
+# you can create a custom form helper method that can handle conditional expressions too
+# 1) application_helper.rb
+# 2) subjects/show view
+##############################
+# form_for is a rails helper that accepts a block which you can pass html.erb to
+# whenever you want to use block in a helper method, use concat to input text before and after the block output
+# bec when you call yield, the results are output directly to the template
+# 2)
+# admin_area is a sample helper method
+# in this eg, you want to show whatever's in this custom form only for admin users
+admin_area do
+# 1)
+# make a method called admin_area
+# use html_safe method to force the html to be rendered in the browser
+def admin_area(&block)
+  # check for condition; eg, <if admin?> if you have a boolean admin column
+  if true
+    # # using only concat
+    # concat('<div class="admin">'.html_safe)
+    # yield
+    # concat('</div>'.html_safe)
+    # using concat and capture, no need for yield
+    concat content_tag :div, capture(&block), class: "admin"
+  end
+end
+

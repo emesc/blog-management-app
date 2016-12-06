@@ -9,7 +9,6 @@
     <tr>
       <th>Title</th>
       <th>Contains</th>
-      <th></th>
     </tr>
   </thead>
   <tbody>
@@ -17,7 +16,6 @@
       <tr>
         <td><%= link_to subject.title, subject_path(subject) %></td>
         <td>(<%= pluralize(subject.sections.size, 'section') %>)</td>
-        <td><%= link_to "Edit", edit_subject_path(subject) %> | <%= link_to "Delete", subject_path(subject), method: :delete, data: { confirm: "Are you sure?" } %></td>
       </tr>
     <% end %>
   </tbody>

@@ -91,5 +91,4 @@ class SubjectsController < ApplicationController
         "application"
       end
     end
-
 end
