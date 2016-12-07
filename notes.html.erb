@@ -529,3 +529,33 @@ map.with_options :controller => 'photo' do |photo|
   photo.delete ':id/delete', :action => 'delete'
   photo.edit ':id/edit', :action => 'edit'
 end
+
+##############################
+# ROUTE GLOBBING
+# 
+# http://guides.rubyonrails.org/v2.3.11/routing.html#route-globbing
+# 1) routes.rb
+# 2) route_glob_controller.rb
+##############################
+# route globbing is a way to specify that a particular parameter should be matched to all the remaining parts of a route
+# 1)
+get '*path', to: "route_glob#index"
+# 2)
+# to show the params being passed
+def index
+  render text: params.inspect
+end
+# to show the absolute url
+def index
+  render text: request.url
+end
+# if-else was used in the index action for any RecordNotFound error
+def index
+  product = Product.where("name LIKE ?", "%#{params[:path]}%").first
+  # if match is found, redirect to show page of product; otherwise, redirect to products list page
+  if product
+    redirect_to product_path(product)
+  else
+    redirect_to products_path
+  end
+end

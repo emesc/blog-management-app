@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  get 'route_glob/index'
+
   # map.resources :tasks, :collection => { :completed => :get }, :member => { :complete => :put }
 
   authenticated :user do
@@ -13,7 +15,7 @@ Rails.application.routes.draw do
   # get "subjects",       to: "subjects#index"
   # get "subjects(/:id)", to: "subjects#show"
   # get "sections",       to: "sections#index"
-  resources :subjects
+  resources :subjects, :products, :roles
   resources :sections do
     # # custom RESTful actions using collection and member blocks
     # collection do
@@ -32,11 +34,10 @@ Rails.application.routes.draw do
     # nest comments resource
     resources :comments, only: [:create]
   end
-  resources :products
-  resources :roles
-  # page not found
-  get "*path", to: redirect("404.html")
 
   # named route
   get "/sections/:year/:month", to: "sections#archive", as: :section_archive
+
+  # catch all route / route globbing
+  get '*path', to: "route_glob#index"
 end
