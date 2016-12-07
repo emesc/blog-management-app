@@ -453,6 +453,7 @@ end
 ##############################
 # CONDITIONAL VALIDATIONS
 # 
+# http://guides.rubyonrails.org/active_record_validations.html#conditional-validation
 # 1) user.rb
 ##############################
 # validation takes place every time a single model is saved
@@ -489,3 +490,42 @@ end
 
 # to just save and skip validations (dangerous)
 @user.save(validate: false)
+
+##############################
+# GROUPING CONDITIONAL VALIDATIONS
+# 
+# http://guides.rubyonrails.org/active_record_validations.html#grouping-conditional-validations
+# 1) user.rb
+# http://guides.rubyonrails.org/v2.3.11/routing.html
+# 2) routes.rb
+##############################
+validates_presence_of :password, if: :should_validate_password?
+validates_confirmation_of :password, if: :should_validate_password?
+validates_format_of :password, with: /^[^\s]+$/, if: :should_validate_password?
+
+# remove duplications in the options (above have multiple validations that use one condition)
+with_options if: :should_validate_password? do |user|
+  user.validates_presence_of :password
+  user.validates_confirmation_of :password
+  user.validates_format_of :password, with: /^[^\s]+$/
+end
+
+# another example, still in user model
+with_options if: :is_admin? do |admin|
+  admin.validates :password, length: { minimum: 10 }
+  admin.validates :email, presence: true
+end
+
+# route options
+# to simplify defining groups of similar routes
+# ***The importance of map.with_options has declined with the introduction of RESTful routes
+map.with_options controller: 'sessions' do |session|
+  session.login 'login', action: 'new'
+  session.logout 'logout', action: 'destroy'
+end
+# another example from RoR guides
+map.with_options :controller => 'photo' do |photo|
+  photo.list '', :action => 'index'
+  photo.delete ':id/delete', :action => 'delete'
+  photo.edit ':id/edit', :action => 'edit'
+end
