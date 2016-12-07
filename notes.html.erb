@@ -450,3 +450,42 @@ def admin_area(&block)
   end
 end
 
+##############################
+# CONDITIONAL VALIDATIONS
+# 
+# 1) user.rb
+##############################
+# validation takes place every time a single model is saved
+# otherwise do conditional validation
+# 1)
+# ensure presence of first_name but only on create action
+validates_presence_of :first_name, on: :create
+# eg, the user table has country and state columns and you want to validate the state only if country is US
+validates_presence_of :country
+# add which method to call when validations take place
+validates_presence_of :state, if: :in_us?
+
+def in_us?
+  country == '<US></US>'
+end
+
+# to change the behaviour of the validation in the controller and not just based on user's attrs
+# eg, just on the update password page and not every time the user is updated
+# ***this is already handled by devise if installed
+# anyway
+validates_presence_of :password, on: :should_validate_password?
+validates_presence_of :country
+validates_presence_of :state, if: :in_us?
+attr_accessor :updating_password  # the controller can set this to T/F
+
+def should_validate_password?
+  # if attr updating_password is true or if user is on registration page
+  updating_password || new_record?
+end
+
+# in controller, in update password page
+@user.updating_password = true
+@user.save
+
+# to just save and skip validations (dangerous)
+@user.save(validate: false)
